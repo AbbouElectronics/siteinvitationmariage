@@ -79,7 +79,7 @@ updateCountdown();
 // ═══════════════════════════════════════════════
 //  PÉTALES FLOTTANTS
 // ═══════════════════════════════════════════════
-const PETALS = ['🌸', '🌺', '🌹', '🌷', '💐', '✿'];
+const PETALS = ['🦢', '🦢', '🦢', '✦', '🤍'];
 
 function startPetals() {
   const container = document.getElementById('petals-container');
