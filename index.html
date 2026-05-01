@@ -217,7 +217,11 @@
         <p class="section-desc">Merci de confirmer votre présence avant le <strong>1er Juin 2026</strong></p>
       </div>
 
-      <form class="rsvp-form reveal" id="rsvpForm">
+      <form class="rsvp-form reveal" id="rsvpForm" method="POST">
+        <!-- Web3Forms -->
+        <input type="hidden" name="access_key" value="c60082dd-5b7a-472c-aa66-c1720e91aceb">
+        <input type="hidden" name="subject" value="💌 Nouveau RSVP — Mariage PRÉNOM1 & PRÉNOM2">
+        <input type="hidden" name="from_name" value="Site Invitation Mariage">
         <div class="form-row">
           <div class="form-group">
             <label for="prenom">Votre Prénom *</label>

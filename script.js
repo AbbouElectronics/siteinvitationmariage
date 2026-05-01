@@ -115,35 +115,41 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // ═══════════════════════════════════════════════
-//  FORMULAIRE RSVP
+//  FORMULAIRE RSVP — Web3Forms
 // ═══════════════════════════════════════════════
-document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
-  const data = Object.fromEntries(new FormData(this));
+  const btn = this.querySelector('.rsvp-btn');
+  btn.textContent = 'Envoi en cours...';
+  btn.disabled = true;
 
-  // ─── Option A : envoi par e-mail (mailto) ───────────────────────────────
-  // Décommentez les lignes ci-dessous et remplacez "votre@email.com"
-  // ────────────────────────────────────────────────────────────────────────
-  // const subj = encodeURIComponent(`RSVP — ${data.prenom} ${data.nom}`);
-  // const body = encodeURIComponent(
-  //   `Prénom : ${data.prenom}\nNom : ${data.nom}\nEmail : ${data.email}\n`
-  //   + `Présence : ${data.presence}\nNombre : ${data.invites}\n`
-  //   + `Allergies : ${data.allergies || 'aucune'}\nMessage : ${data.message || '—'}`
-  // );
-  // window.open(`mailto:votre@email.com?subject=${subj}&body=${body}`);
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData);
 
-  // ─── Option B : Formspree (gratuit) ─────────────────────────────────────
-  // 1. Créez un compte sur https://formspree.io
-  // 2. Remplacez YOUR_FORM_ID dans l'action ci-dessous
-  // 3. Changez method="POST" dans le HTML <form> et ajoutez action="https://formspree.io/f/YOUR_FORM_ID"
-  // ────────────────────────────────────────────────────────────────────────
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
 
-  // Affiche le message de succès
-  this.style.display = 'none';
-  const success = document.getElementById('rsvpSuccess');
-  success.style.display = 'block';
-  success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (json.success) {
+      this.style.display = 'none';
+      const success = document.getElementById('rsvpSuccess');
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      btn.textContent = 'Réessayer 💌';
+      btn.disabled = false;
+      alert('Une erreur est survenue. Merci de réessayer.');
+    }
+  } catch {
+    btn.textContent = 'Réessayer 💌';
+    btn.disabled = false;
+    alert('Problème de connexion. Merci de réessayer.');
+  }
 });
 
 // ═══════════════════════════════════════════════
