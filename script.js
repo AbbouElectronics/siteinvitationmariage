@@ -1,6 +1,49 @@
 // ═══════════════════════════════════════════════
-//  ÉCRAN D'OUVERTURE
+//  PORTE — OUVERTURE ET JARDIN
 // ═══════════════════════════════════════════════
+function openDoor() {
+  // Ouvrir les deux panneaux
+  document.getElementById('dpLeft').classList.add('open');
+  document.getElementById('dpRight').classList.add('open');
+  document.getElementById('doorHint').style.opacity = '0';
+
+  // Afficher le jardin derrière
+  const garden = document.getElementById('gardenScene');
+  setTimeout(() => {
+    garden.classList.add('visible');
+  }, 400);
+
+  // Faire disparaître la scène de la porte après 1.2s
+  setTimeout(() => {
+    document.getElementById('doorScene').classList.add('fade-out');
+  }, 1200);
+
+  // Lancer le compte à rebours 30s
+  startGardenTimer();
+}
+
+// Compte à rebours 30 secondes sur le jardin
+function startGardenTimer() {
+  const TOTAL = 30;
+  const CIRCUM = 2 * Math.PI * 28; // r=28 → ~175.9
+  const bar = document.getElementById('gTimerBar');
+  const num = document.getElementById('gTimerNum');
+  bar.style.strokeDasharray  = CIRCUM;
+  bar.style.strokeDashoffset = 0;
+
+  let remaining = TOTAL;
+  const tick = setInterval(() => {
+    remaining--;
+    if (num) num.textContent = remaining;
+    const offset = CIRCUM * (1 - remaining / TOTAL);
+    if (bar) bar.style.strokeDashoffset = offset;
+    if (remaining <= 0) {
+      clearInterval(tick);
+      closeOpening();
+    }
+  }, 1000);
+}
+
 function closeOpening() {
   document.getElementById('opening-overlay').classList.add('hidden');
   startPetals();

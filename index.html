@@ -15,22 +15,91 @@
 <body>
 
   <!-- ══════════════════════════════════════════ -->
-  <!--  ÉCRAN D'OUVERTURE                        -->
+  <!--  ÉCRAN D'OUVERTURE — PORTE + JARDIN       -->
   <!-- ══════════════════════════════════════════ -->
   <div id="opening-overlay" class="opening-overlay">
-    <div class="opening-card">
-      <div class="opening-deco top">✦ ✦ ✦</div>
-      <div class="opening-ring">💍</div>
-      <p class="opening-sub">Vous êtes cordialement invité(e) au mariage de</p>
-      <!-- MODIFIEZ vos prénoms ici -->
-      <h1 class="opening-names">PRÉNOM1 &amp; PRÉNOM2</h1>
-      <p class="opening-date-sub">le 22 Juin 2026</p>
-      <div class="opening-deco bottom">✦ ✦ ✦</div>
-      <button class="opening-btn" onclick="closeOpening()">
-        <span>Ouvrir mon invitation</span>
-        <span class="btn-icon">✉</span>
-      </button>
+
+    <!-- ── SCÈNE 1 : JARDIN D'OR (derrière la porte) ── -->
+    <div class="garden-scene" id="gardenScene">
+      <!-- Ciel doré -->
+      <div class="g-sky"></div>
+      <!-- Soleil -->
+      <div class="g-sun"></div>
+      <!-- Mer scintillante -->
+      <div class="g-sea"><div class="g-sea-shimmer"></div></div>
+      <!-- Arbres silhouettes -->
+      <div class="g-trees">
+        <div class="g-tree cyp" style="left:5%;height:220px;width:45px"></div>
+        <div class="g-tree cyp" style="left:12%;height:180px;width:38px"></div>
+        <div class="g-tree round" style="left:22%;height:120px;width:120px"></div>
+        <div class="g-tree cyp" style="left:72%;height:200px;width:42px"></div>
+        <div class="g-tree round" style="left:80%;height:100px;width:100px"></div>
+        <div class="g-tree cyp" style="left:90%;height:190px;width:40px"></div>
+      </div>
+      <!-- Oiseaux de mer -->
+      <div class="g-bird" style="--delay:0s;   --y:18%;--size:1.2"></div>
+      <div class="g-bird" style="--delay:2s;   --y:12%;--size:0.9"></div>
+      <div class="g-bird" style="--delay:4.5s; --y:22%;--size:1.4"></div>
+      <div class="g-bird" style="--delay:1.5s; --y:8%; --size:0.7"></div>
+      <div class="g-bird" style="--delay:3s;   --y:28%;--size:1.0"></div>
+      <div class="g-bird" style="--delay:6s;   --y:15%;--size:1.1"></div>
+      <div class="g-bird" style="--delay:7.5s; --y:20%;--size:0.8"></div>
+      <!-- Texte du domaine -->
+      <div class="garden-overlay-text">
+        <p class="g-venue-name">O'rale Domaine</p>
+        <p class="g-venue-sub">Notre lieu de mariage ✨</p>
+        <!-- Compte à rebours 30s -->
+        <div class="g-timer" id="gTimer">
+          <svg class="g-timer-svg" viewBox="0 0 64 64">
+            <circle class="g-timer-bg"  cx="32" cy="32" r="28"/>
+            <circle class="g-timer-bar" cx="32" cy="32" r="28" id="gTimerBar"/>
+          </svg>
+          <span class="g-timer-num" id="gTimerNum">30</span>
+        </div>
+        <button class="g-enter-btn" id="gEnterBtn" onclick="closeOpening()">
+          Découvrir l'invitation ✦
+        </button>
+      </div>
     </div>
+
+    <!-- ── SCÈNE 2 : PORTE BLANCHE ── -->
+    <div class="door-scene" id="doorScene">
+      <!-- Mur blanc méditerranéen -->
+      <div class="door-wall"></div>
+      <!-- Roses grimpantes -->
+      <div class="door-roses door-roses-left">
+        <span>🌿</span><span>🌹</span><span>🌿</span><span>🌸</span><span>🌿</span><span>🌹</span>
+      </div>
+      <div class="door-roses door-roses-right">
+        <span>🌿</span><span>🌸</span><span>🌿</span><span>🌹</span><span>🌿</span><span>🌸</span>
+      </div>
+      <!-- Arche au-dessus -->
+      <div class="door-arch-wrap">
+        <div class="door-arch"></div>
+        <!-- Porte double -->
+        <div class="door-frame" id="doorFrame" onclick="openDoor()">
+          <div class="door-perspective-wrap">
+            <div class="door-panel dp-left" id="dpLeft">
+              <div class="dp-top-panel"></div>
+              <div class="dp-mid-bar"></div>
+              <div class="dp-bot-panel"></div>
+              <div class="dp-handle dp-handle-r"></div>
+            </div>
+            <div class="door-seam"></div>
+            <div class="door-panel dp-right" id="dpRight">
+              <div class="dp-top-panel"></div>
+              <div class="dp-mid-bar"></div>
+              <div class="dp-bot-panel"></div>
+              <div class="dp-handle dp-handle-l"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Seuil -->
+        <div class="door-threshold"></div>
+      </div>
+      <p class="door-hint" id="doorHint">✨ Cliquez pour ouvrir ✨</p>
+    </div>
+
   </div>
 
   <!-- Pétales flottants -->
