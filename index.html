@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- MODIFIEZ ici le titre avec vos prénoms -->
+  <title>Mariage de PRÉNOM1 &amp; PRÉNOM2 — 22 Juin 2026</title>
+  <meta property="og:title" content="Mariage de PRÉNOM1 & PRÉNOM2">
+  <meta property="og:description" content="Rejoignez-nous pour célébrer notre mariage le 22 Juin 2026 !">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  ÉCRAN D'OUVERTURE                        -->
+  <!-- ══════════════════════════════════════════ -->
+  <div id="opening-overlay" class="opening-overlay">
+    <div class="opening-card">
+      <div class="opening-deco top">✦ ✦ ✦</div>
+      <div class="opening-ring">💍</div>
+      <p class="opening-sub">Vous êtes cordialement invité(e) au mariage de</p>
+      <!-- MODIFIEZ vos prénoms ici -->
+      <h1 class="opening-names">PRÉNOM1 &amp; PRÉNOM2</h1>
+      <p class="opening-date-sub">le 22 Juin 2026</p>
+      <div class="opening-deco bottom">✦ ✦ ✦</div>
+      <button class="opening-btn" onclick="closeOpening()">
+        <span>Ouvrir mon invitation</span>
+        <span class="btn-icon">✉</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Pétales flottants -->
+  <div id="petals-container"></div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  LECTEUR DE MUSIQUE (fixe en bas)         -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="music-player" id="musicPlayer">
+    <!-- Remplacez music/song.mp3 par le chemin de votre chanson -->
+    <audio id="weddingMusic" loop>
+      <source src="music/song.mp3" type="audio/mpeg">
+    </audio>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+      <span class="music-note" id="musicNote">♪</span>
+      <span class="music-label" id="musicLabel">Musique</span>
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  HERO — SECTION PRINCIPALE                -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-sub reveal">Nous vous invitons à célébrer notre union</p>
+      <div class="ornament reveal">❧ ❧ ❧</div>
+      <!-- MODIFIEZ vos prénoms ici -->
+      <h1 class="hero-names reveal">PRÉNOM1 &amp; PRÉNOM2</h1>
+      <div class="ornament reveal">✦ ✦ ✦</div>
+      <p class="hero-date reveal">Le 22 Juin 2026</p>
+      <!-- MODIFIEZ votre ville ici -->
+      <p class="hero-location reveal">📍 Votre Ville, France</p>
+      <a href="#rsvp" class="hero-cta reveal">Confirmer ma présence 💌</a>
+    </div>
+    <div class="hero-scroll-hint">↓</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  COMPTE À REBOURS                         -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="countdown-section">
+    <div class="container">
+      <p class="countdown-title">Plus que...</p>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <span class="countdown-number" id="days">00</span>
+          <span class="countdown-label">Jours</span>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="hours">00</span>
+          <span class="countdown-label">Heures</span>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="minutes">00</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="seconds">00</span>
+          <span class="countdown-label">Secondes</span>
+        </div>
+      </div>
+      <p class="countdown-sub">avant le plus beau jour de notre vie ✨</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  NOTRE HISTOIRE                           -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="story-section" id="histoire">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Notre Histoire</p>
+        <h2 class="section-title">Un amour pour toujours</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="story-content reveal">
+        <!-- MODIFIEZ votre histoire ici -->
+        <p class="story-text">
+          Depuis le jour où nos regards se sont croisés, nous savions que quelque chose de magnifique
+          allait naître. Après de belles années de bonheur partagé, de rires, de voyages et d'une
+          complicité sans égale, nous sommes enfin prêts à sceller notre amour devant ceux qui nous
+          sont les plus chers.
+        </p>
+        <blockquote class="story-quote">
+          "L'amour ne se voit pas avec les yeux, mais avec l'âme."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  PROGRAMME DE LA JOURNÉE                  -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="details-section" id="programme">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Le Grand Jour</p>
+        <h2 class="section-title">Le Programme</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="details-grid">
+        <!-- MODIFIEZ les détails de la cérémonie -->
+        <div class="detail-card reveal">
+          <div class="detail-icon">💒</div>
+          <h3>La Cérémonie</h3>
+          <div class="detail-divider"></div>
+          <p class="detail-time">14h00</p>
+          <p class="detail-venue">Votre Lieu de Cérémonie</p>
+          <p class="detail-address">Adresse complète<br>Ville, Code Postal</p>
+          <!-- MODIFIEZ le lien Google Maps -->
+          <a href="https://maps.google.com" target="_blank" class="detail-map-btn">📍 Voir sur la carte</a>
+        </div>
+        <!-- MODIFIEZ les détails de la réception -->
+        <div class="detail-card reveal">
+          <div class="detail-icon">🥂</div>
+          <h3>La Réception</h3>
+          <div class="detail-divider"></div>
+          <p class="detail-time">17h00</p>
+          <p class="detail-venue">Votre Lieu de Réception</p>
+          <p class="detail-address">Adresse complète<br>Ville, Code Postal</p>
+          <!-- MODIFIEZ le lien Google Maps -->
+          <a href="https://maps.google.com" target="_blank" class="detail-map-btn">📍 Voir sur la carte</a>
+        </div>
+      </div>
+
+      <!-- INFORMATIONS PRATIQUES -->
+      <div class="info-band reveal">
+        <div class="info-item">
+          <span class="info-icon">👗</span>
+          <span class="info-text">Tenue élégante souhaitée</span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🌸</span>
+          <span class="info-text">Couleur : Blanc &amp; Or</span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🍾</span>
+          <span class="info-text">Dîner &amp; soirée dansante</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  GALERIE PHOTOS                           -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="gallery-section" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Nos Moments</p>
+        <h2 class="section-title">Nos Photos</h2>
+        <div class="section-line"></div>
+        <p class="section-desc" style="color:rgba(250,247,242,0.6); margin-top:0.5rem;">
+          <!-- Remplacez les blocs ci-dessous par vos vraies photos -->
+        </p>
+      </div>
+      <div class="gallery-grid reveal">
+        <!-- REMPLACEZ style="background-image:url(...)" par vos photos -->
+        <div class="gallery-item g1"><span class="gallery-placeholder">📸</span></div>
+        <div class="gallery-item g2"><span class="gallery-placeholder">📸</span></div>
+        <div class="gallery-item g3"><span class="gallery-placeholder">📸</span></div>
+        <div class="gallery-item g4"><span class="gallery-placeholder">📸</span></div>
+        <div class="gallery-item g5"><span class="gallery-placeholder">📸</span></div>
+        <div class="gallery-item g6"><span class="gallery-placeholder">📸</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  RSVP — CONFIRMATION DE PRÉSENCE          -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="rsvp-section" id="rsvp">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Confirmation</p>
+        <h2 class="section-title">Serez-vous des nôtres ?</h2>
+        <div class="section-line"></div>
+        <!-- MODIFIEZ la date limite de réponse -->
+        <p class="section-desc">Merci de confirmer votre présence avant le <strong>1er Juin 2026</strong></p>
+      </div>
+
+      <form class="rsvp-form reveal" id="rsvpForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Votre Prénom *</label>
+            <input type="text" id="prenom" name="prenom" required placeholder="Marie">
+          </div>
+          <div class="form-group">
+            <label for="nom">Votre Nom *</label>
+            <input type="text" id="nom" name="nom" required placeholder="Dupont">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Adresse Email *</label>
+          <input type="email" id="email" name="email" required placeholder="marie@exemple.fr">
+        </div>
+        <div class="form-group">
+          <label>Votre présence *</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="presence" value="oui" required>
+              <span>✅ Oui, je serai présent(e) avec joie !</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="presence" value="non">
+              <span>😔 Je ne pourrai malheureusement pas venir</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="invites">Nombre de personnes (vous inclus)</label>
+          <select id="invites" name="invites">
+            <option value="1">1 personne</option>
+            <option value="2">2 personnes</option>
+            <option value="3">3 personnes</option>
+            <option value="4">4 personnes</option>
+            <option value="5">5 personnes et plus</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="allergies">Allergies ou régimes alimentaires ?</label>
+          <input type="text" id="allergies" name="allergies" placeholder="Ex : végétarien, sans gluten...">
+        </div>
+        <div class="form-group">
+          <label for="message">Un message pour les mariés ? 💬</label>
+          <textarea id="message" name="message" rows="4" placeholder="Vos vœux de bonheur..."></textarea>
+        </div>
+        <button type="submit" class="rsvp-btn">
+          Envoyer ma confirmation 💌
+        </button>
+      </form>
+
+      <!-- Message de succès après soumission -->
+      <div class="rsvp-success" id="rsvpSuccess" style="display:none">
+        <div class="success-icon">💌</div>
+        <h3>Merci mille fois !</h3>
+        <p>Nous avons bien reçu votre réponse.<br>Nous avons tellement hâte de vous voir !</p>
+        <p class="success-names">— PRÉNOM1 &amp; PRÉNOM2 —</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!--  PIED DE PAGE                             -->
+  <!-- ══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <!-- MODIFIEZ vos prénoms ici -->
+    <h2 class="footer-names">PRÉNOM1 &amp; PRÉNOM2</h2>
+    <p class="footer-date">22 Juin 2026</p>
+    <p class="footer-quote">"Et ils vécurent heureux pour toujours..."</p>
+    <div class="footer-hearts">♥ ♥ ♥</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
