@@ -1,43 +1,57 @@
 // ═══════════════════════════════════════════════
-//  PORTE — OUVERTURE ET JARDIN
+//  PORTE PHOTO → VIDÉO OISEAUX
 // ═══════════════════════════════════════════════
+
+// ─── METTEZ ICI L'ID DE VOTRE VIDÉO YOUTUBE ────
+// Exemple : pour https://www.youtube.com/watch?v=abc123XYZ
+// → mettez  'abc123XYZ'
+// Donnez le lien YouTube à l'assistant pour qu'il le mette automatiquement
+const BIRDS_VIDEO_ID = 'REMPLACEZ_PAR_VOTRE_VIDEO_ID';
+// ────────────────────────────────────────────────
+
+let doorOpened = false;
+
 function openDoor() {
-  // Ouvrir les deux panneaux
-  document.getElementById('dpLeft').classList.add('open');
-  document.getElementById('dpRight').classList.add('open');
-  document.getElementById('doorHint').style.opacity = '0';
+  if (doorOpened) return;
+  doorOpened = true;
 
-  // Afficher le jardin derrière
-  const garden = document.getElementById('gardenScene');
+  const doorScene    = document.getElementById('doorScene');
+  const videoScene   = document.getElementById('videoScene');
+  const birdsIframe  = document.getElementById('birdsIframe');
+
+  // Transition : porte → vidéo
+  doorScene.classList.add('fade-out');
+
   setTimeout(() => {
-    garden.classList.add('visible');
-  }, 400);
+    doorScene.style.display = 'none';
+    videoScene.classList.add('active');
 
-  // Faire disparaître la scène de la porte après 1.2s
-  setTimeout(() => {
-    document.getElementById('doorScene').classList.add('fade-out');
-  }, 1200);
+    // Charger la vidéo YouTube (autoplay + muet + sans contrôles)
+    if (BIRDS_VIDEO_ID && BIRDS_VIDEO_ID !== 'REMPLACEZ_PAR_VOTRE_VIDEO_ID') {
+      birdsIframe.src =
+        `https://www.youtube.com/embed/${BIRDS_VIDEO_ID}` +
+        `?autoplay=1&mute=1&loop=1&playlist=${BIRDS_VIDEO_ID}` +
+        `&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3`;
+    } else {
+      // Pas de vidéo configurée → fond sombre avec message
+      videoScene.style.background =
+        'linear-gradient(180deg,#0d1f35 0%,#1a4060 20%,#5ab0d0 50%,#f0a830 80%,#3a6018 100%)';
+    }
 
-  // Lancer le compte à rebours 30s
-  startGardenTimer();
+    // Lancer le compte à rebours 10 secondes
+    startVideoTimer(10);
+  }, 800);
 }
 
-// Compte à rebours 30 secondes sur le jardin
-function startGardenTimer() {
-  const TOTAL = 30;
-  const CIRCUM = 2 * Math.PI * 28; // r=28 → ~175.9
-  const bar = document.getElementById('gTimerBar');
-  const num = document.getElementById('gTimerNum');
-  bar.style.strokeDasharray  = CIRCUM;
-  bar.style.strokeDashoffset = 0;
+function startVideoTimer(seconds) {
+  const fill = document.getElementById('videoProgressFill');
+  let elapsed = 0;
 
-  let remaining = TOTAL;
   const tick = setInterval(() => {
-    remaining--;
-    if (num) num.textContent = remaining;
-    const offset = CIRCUM * (1 - remaining / TOTAL);
-    if (bar) bar.style.strokeDashoffset = offset;
-    if (remaining <= 0) {
+    elapsed++;
+    const pct = (elapsed / seconds) * 100;
+    if (fill) fill.style.width = pct + '%';
+    if (elapsed >= seconds) {
       clearInterval(tick);
       closeOpening();
     }
@@ -45,6 +59,10 @@ function startGardenTimer() {
 }
 
 function closeOpening() {
+  // Stopper la vidéo YouTube
+  const iframe = document.getElementById('birdsIframe');
+  if (iframe) iframe.src = 'about:blank';
+
   document.getElementById('opening-overlay').classList.add('hidden');
   startPetals();
   tryAutoPlay();

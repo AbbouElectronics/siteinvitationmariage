@@ -30,7 +30,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   ÉCRAN D'OUVERTURE — PORTE & JARDIN
+   ÉCRAN D'OUVERTURE — PHOTO PORTE + VIDÉO
 ═══════════════════════════════════════════════ */
 .opening-overlay {
   position: fixed; inset: 0;
@@ -42,330 +42,155 @@ body {
   opacity: 0; visibility: hidden; pointer-events: none;
 }
 
-/* ── PORTE BLANCHE ── */
+/* ── SCÈNE 1 : PHOTO DE LA PORTE ── */
 .door-scene {
   position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  background: linear-gradient(180deg, #e8e4dc 0%, #f5f0e8 40%, #ede8de 100%);
-  transition: opacity 1.5s ease;
+  cursor: pointer;
   z-index: 2;
+  transition: opacity 1s ease;
 }
 .door-scene.fade-out { opacity: 0; pointer-events: none; }
 
-.door-wall {
+.door-photo-bg {
   position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 70%),
-    linear-gradient(180deg, #ddd8ce 0%, #f0ece3 50%, #e8e3d8 100%);
+  /* Photo porte blanche avec roses — Unsplash (gratuit) */
+  background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-color: #f5f0e8; /* fallback si image ne charge pas */
+  filter: brightness(0.92);
 }
 
-/* Roses sur les côtés */
-.door-roses {
-  position: absolute; top: 15%; bottom: 18%;
-  display: flex; flex-direction: column;
-  justify-content: space-around;
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  z-index: 3;
-  line-height: 1.4;
-}
-.door-roses-left  { left: clamp(10px, 6vw, 80px); }
-.door-roses-right { right: clamp(10px, 6vw, 80px); }
-
-/* Arche */
-.door-arch-wrap {
-  position: relative;
-  display: flex; flex-direction: column; align-items: center;
-  z-index: 3;
-}
-.door-arch {
-  width: clamp(240px, 40vw, 380px);
-  height: clamp(80px, 12vw, 130px);
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  background: linear-gradient(180deg, #d4c8b0 0%, #c8bca4 100%);
-  border: 6px solid #b8a888;
-  border-bottom: none;
-  box-shadow: inset 0 -4px 12px rgba(0,0,0,0.08), 0 -4px 20px rgba(0,0,0,0.08);
-  margin-bottom: -4px;
-}
-
-/* Cadre de porte */
-.door-frame {
-  width: clamp(240px, 40vw, 380px);
-  background: #b8a888;
-  padding: 6px;
-  border: 6px solid #b8a888;
-  cursor: pointer;
-  box-shadow: 4px 8px 30px rgba(0,0,0,0.2), inset 0 0 0 3px #c8ba9a;
-  position: relative;
-  user-select: none;
-}
-.door-frame:hover .door-hint { color: var(--gold); }
-
-.door-perspective-wrap {
-  display: flex;
-  transform-style: preserve-3d;
-  perspective: 1200px;
-  height: clamp(280px, 45vw, 440px);
-}
-
-/* Panneaux de la porte */
-.door-panel {
-  flex: 1;
-  background: linear-gradient(160deg, #ffffff 0%, #f8f4ec 40%, #ede8de 100%);
-  position: relative;
-  transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
-  box-shadow: inset 0 0 0 2px rgba(200,188,160,0.4);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: space-around;
-  padding: 12px 8px;
-}
-.dp-left  { transform-origin: left center;  border-right: 1px solid #d0c4a8; }
-.dp-right { transform-origin: right center; border-left: 1px solid #d0c4a8;  }
-.dp-left.open  { transform: perspective(1200px) rotateY(-115deg); }
-.dp-right.open { transform: perspective(1200px) rotateY(115deg);  }
-
-/* Panneaux décoratifs */
-.dp-top-panel, .dp-bot-panel {
-  width: 80%;
-  background: linear-gradient(145deg, #f5f0e8, #ebe4d4);
-  border: 2px solid rgba(200,185,155,0.6);
-  border-radius: 4px;
-  box-shadow: inset 2px 2px 5px rgba(255,255,255,0.8), inset -2px -2px 5px rgba(0,0,0,0.05);
-}
-.dp-top-panel { height: 35%; }
-.dp-bot-panel { height: 55%; }
-.dp-mid-bar {
-  width: 80%; height: 8px;
-  background: linear-gradient(90deg, #e0d8c4, #d4c8a8, #e0d8c4);
-  border-radius: 2px;
-}
-
-/* Poignées en or */
-.dp-handle {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 14px; height: 55px;
-  background: linear-gradient(180deg, #e8c84a 0%, #c8a020 30%, #d4af37 60%, #a07818 100%);
-  border-radius: 7px;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-}
-.dp-handle::after {
-  content: '';
-  position: absolute;
-  top: -12px; left: 50%; transform: translateX(-50%);
-  width: 18px; height: 18px;
-  background: radial-gradient(circle, #e8c84a, #b08020);
-  border-radius: 50%;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-}
-.dp-handle-r { right: 12px; }
-.dp-handle-l { left: 12px; }
-
-/* Séparation centrale */
-.door-seam { width: 4px; background: #b8a888; flex-shrink: 0; }
-
-/* Seuil */
-.door-threshold {
-  width: clamp(252px, 42vw, 392px);
-  height: 18px;
-  background: linear-gradient(180deg, #c8ba9a, #b0a080);
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Texte "cliquez" */
-.door-hint {
-  margin-top: 1.8rem;
-  font-family: var(--serif);
-  font-size: 1rem;
-  letter-spacing: 3px;
-  color: var(--text-light);
-  animation: pulse 2s ease-in-out infinite;
-  transition: color 0.3s;
-}
-
-/* ── JARDIN D'OR ── */
-.garden-scene {
+.door-tap-overlay {
   position: absolute; inset: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-  z-index: 1;
-}
-.garden-scene.visible { opacity: 1; }
-
-/* Ciel doré */
-.g-sky {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg,
-    #0d1f35 0%,
-    #1a4060 8%,
-    #2a7090 18%,
-    #5ab0d0 32%,
-    #90cce0 45%,
-    #f8d890 62%,
-    #f0a830 75%,
-    #e07020 85%,
-    #5a8a30 85%,
-    #3a6018 100%
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at center,
+    rgba(0,0,0,0.35) 0%,
+    rgba(0,0,0,0.1) 60%,
+    transparent 100%
   );
 }
 
-/* Soleil */
-.g-sun {
-  position: absolute;
-  top: 38%; left: 50%; transform: translate(-50%, -50%);
-  width: 80px; height: 80px;
-  background: radial-gradient(circle, #fff8d0 0%, #ffd040 40%, #ff9020 70%, transparent 100%);
-  border-radius: 50%;
-  box-shadow: 0 0 60px 30px rgba(255,200,50,0.5), 0 0 120px 60px rgba(255,150,30,0.3);
-  animation: sunPulse 4s ease-in-out infinite;
-}
-@keyframes sunPulse {
-  0%,100% { box-shadow: 0 0 60px 30px rgba(255,200,50,0.5), 0 0 120px 60px rgba(255,150,30,0.3); }
-  50%      { box-shadow: 0 0 80px 40px rgba(255,210,60,0.6), 0 0 160px 80px rgba(255,160,40,0.35); }
-}
-
-/* Mer */
-.g-sea {
-  position: absolute; bottom: 15%; left: 0; right: 0;
-  height: 70px;
-  background: linear-gradient(180deg, rgba(60,140,180,0.7), rgba(30,90,130,0.9));
-  overflow: hidden;
-}
-.g-sea-shimmer {
-  position: absolute; inset: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    rgba(255,255,255,0.15) 40px,
-    transparent 80px
-  );
-  animation: seaMove 3s linear infinite;
-}
-@keyframes seaMove { from { transform: translateX(0); } to { transform: translateX(80px); } }
-
-/* Arbres silhouettes */
-.g-trees { position: absolute; bottom: 0; left: 0; right: 0; height: 100%; pointer-events: none; }
-.g-tree {
-  position: absolute;
-  bottom: 15%;
-  background: #1a3a10;
-}
-.g-tree.cyp {
-  border-radius: 50% 50% 10% 10%;
-  background: linear-gradient(180deg, #1a4010 0%, #0d2808 100%);
-}
-.g-tree.round {
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #2a5a18, #0d2808);
-}
-
-/* Oiseaux de mer (mouettes) */
-.g-bird {
-  position: absolute;
-  top: var(--y);
-  left: -60px;
-  width: calc(40px * var(--size));
-  height: calc(14px * var(--size));
-  animation: birdFly 9s calc(var(--delay)) linear infinite;
-}
-.g-bird::before, .g-bird::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  border-top: calc(3px * var(--size)) solid rgba(255,255,255,0.92);
-  border-radius: 50% 50% 0 0;
-}
-.g-bird::before { left: 0; }
-.g-bird::after  { right: 0; }
-
-@keyframes birdFly {
-  0%   { transform: translateX(0) translateY(0); }
-  25%  { transform: translateX(30vw) translateY(-15px); }
-  50%  { transform: translateX(60vw) translateY(5px); }
-  75%  { transform: translateX(90vw) translateY(-10px); }
-  100% { transform: translateX(115vw) translateY(0); }
-}
-
-/* Texte sur le jardin */
-.garden-overlay-text {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
+.door-tap-card {
   text-align: center;
-  padding: 2rem;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.25) 0%, transparent 70%);
+  color: white;
+  padding: 2.5rem 3rem;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(212,175,55,0.4);
+  border-radius: 20px;
+  animation: fadeInUp 1.5s ease;
 }
-.g-venue-name {
+.door-tap-names {
   font-family: var(--script);
   font-size: clamp(2.5rem, 8vw, 5rem);
   color: var(--gold);
-  text-shadow: 0 0 40px rgba(212,175,55,0.6), 2px 2px 8px rgba(0,0,0,0.5);
+  text-shadow: 0 0 30px rgba(212,175,55,0.6);
   line-height: 1;
-  animation: fadeInUp 1s ease 0.5s both;
 }
-.g-venue-sub {
+.door-tap-date {
+  font-family: var(--display);
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin-top: 0.4rem;
+}
+.door-tap-line {
+  width: 60px; height: 1px;
+  background: var(--gold);
+  margin: 1.2rem auto;
+}
+.door-tap-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  animation: pulse 2s ease-in-out infinite;
+}
+.door-tap-hint {
   font-family: var(--serif);
-  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  font-size: 0.9rem;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: rgba(250,247,242,0.85);
-  margin-top: 0.5rem;
-  animation: fadeInUp 1s ease 1s both;
+  color: rgba(255,255,255,0.7);
 }
 
-/* Timer circulaire */
-.g-timer {
-  position: relative;
-  width: 70px; height: 70px;
-  margin: 2rem auto 1rem;
-  animation: fadeInUp 1s ease 1.5s both;
-}
-.g-timer-svg {
-  width: 70px; height: 70px;
-  transform: rotate(-90deg);
-}
-.g-timer-bg  { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 4; }
-.g-timer-bar {
-  fill: none; stroke: var(--gold); stroke-width: 4;
-  stroke-dasharray: 176;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 1s linear;
-}
-.g-timer-num {
+/* ── SCÈNE 2 : VIDÉO DES OISEAUX ── */
+.video-scene {
   position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--display);
-  font-size: 1.2rem;
-  color: var(--gold);
-  font-weight: 700;
+  display: none;
+  z-index: 3;
+  background: #000;
+}
+.video-scene.active { display: block; }
+
+#birdsIframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+  /* Pour contourner les marges YouTube en plein écran */
+  top: -60px; height: calc(100% + 120px);
+  pointer-events: none;
 }
 
-/* Bouton entrer */
-.g-enter-btn {
-  padding: 0.9rem 2.5rem;
-  background: rgba(212,175,55,0.15);
-  border: 1.5px solid var(--gold);
-  border-radius: 50px;
+.video-text-overlay {
+  position: absolute;
+  bottom: 80px; left: 0; right: 0;
+  text-align: center;
+  animation: fadeInUp 1.5s ease 1s both;
+  pointer-events: none;
+}
+.vto-venue {
+  font-family: var(--script);
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(212,175,55,0.7), 2px 2px 10px rgba(0,0,0,0.8);
+}
+.vto-sub {
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+  margin-top: 0.4rem;
+}
+
+.video-progress-wrap {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: rgba(255,255,255,0.15);
+}
+.video-progress-fill {
+  height: 100%;
+  background: var(--gold);
+  width: 0%;
+  transition: width 1s linear;
+}
+
+.video-skip-btn {
+  position: absolute;
+  top: 20px; right: 20px;
+  padding: 0.6rem 1.4rem;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(212,175,55,0.5);
+  border-radius: 30px;
   color: var(--gold);
   font-family: var(--serif);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   letter-spacing: 2px;
   cursor: pointer;
-  transition: all 0.35s ease;
-  animation: fadeInUp 1s ease 2s both;
+  transition: all 0.3s ease;
   backdrop-filter: blur(4px);
 }
-.g-enter-btn:hover {
+.video-skip-btn:hover {
   background: var(--gold);
   color: var(--dark);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(212,175,55,0.4);
 }
+
+
+
 
 /* ═══════════════════════════════════════════════
    PÉTALES FLOTTANTS
