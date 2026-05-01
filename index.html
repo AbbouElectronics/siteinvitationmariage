@@ -15,59 +15,58 @@
 <body>
 
   <!-- ══════════════════════════════════════════ -->
-  <!--  ÉCRAN D'OUVERTURE — PORTE PHOTO + VIDÉO  -->
+  <!--  ÉCRAN D'OUVERTURE — PORTE + VIDÉO        -->
   <!-- ══════════════════════════════════════════ -->
   <div id="opening-overlay" class="opening-overlay">
 
-    <!-- ── SCÈNE 1 : VRAIE PHOTO DE LA PORTE ── -->
-    <div class="door-scene" id="doorScene" onclick="openDoor()">
-      <!--
-        Photo : porte blanche méditerranéenne avec roses
-        Source : Unsplash (gratuite)
-        Pour changer la photo, remplacez l'URL ci-dessous
-      -->
-      <div class="door-photo-bg"></div>
-      <div class="door-tap-overlay">
-        <div class="door-tap-card">
-          <p class="door-tap-names">Abdelali &amp; Zahia</p>
-          <p class="door-tap-date">22 Juin 2026</p>
-          <div class="door-tap-line"></div>
-          <div class="door-tap-icon">🚪</div>
-          <p class="door-tap-hint">Touchez pour ouvrir</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── SCÈNE 2 : VIDÉO DES OISEAUX (YouTube) ── -->
-    <div class="video-scene" id="videoScene">
-      <!--
-        VIDÉO OISEAUX / MOUETTES :
-        - Allez sur YouTube
-        - Cherchez "mouettes qui volent plage" ou "seagulls flying beach"
-        - Copiez l'URL (ex: https://www.youtube.com/watch?v=XXXXXXXXX)
-        - Remplacez VIDEO_ID_ICI par les 11 caractères après "watch?v="
-        - Ou donnez le lien à l'assistant pour qu'il le mette automatiquement
-      -->
+    <!-- ── VIDÉO DERRIÈRE LA PORTE (joue en fond) ── -->
+    <div class="behind-door" id="behindDoor">
       <iframe
         id="birdsIframe"
         src="about:blank"
         frameborder="0"
-        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+        allow="autoplay; fullscreen; encrypted-media"
         allowfullscreen
       ></iframe>
-      <!-- Texte sur la vidéo -->
-      <div class="video-text-overlay" id="videoTextOverlay">
-        <p class="vto-venue">O'rale Domaine</p>
-        <p class="vto-sub">Notre lieu de mariage ✨</p>
+      <!-- Texte visible quand la porte est ouverte -->
+      <div class="behind-text" id="behindText">
+        <p class="bt-names">Abdelali &amp; Zahia</p>
+        <p class="bt-venue">O'rale Domaine ✨</p>
+        <button class="bt-enter" onclick="closeOpening()">Voir l'invitation →</button>
       </div>
-      <!-- Barre de progression 10s -->
-      <div class="video-progress-wrap">
-        <div class="video-progress-fill" id="videoProgressFill"></div>
+    </div>
+
+    <!-- ── PORTE DOUBLE PLEIN ÉCRAN ── -->
+    <div class="door-wrap" id="doorWrap" onclick="openDoor()">
+
+      <!-- Panneau gauche -->
+      <div class="door-half door-left" id="doorLeft">
+        <div class="door-planks"></div>
+        <div class="door-frame-inner">
+          <div class="door-panel-top"></div>
+          <div class="door-panel-bot"></div>
+        </div>
+        <div class="door-handle dh-right"></div>
       </div>
-      <!-- Bouton passer -->
-      <button class="video-skip-btn" id="videoSkipBtn" onclick="closeOpening()">
-        Voir l'invitation →
-      </button>
+
+      <!-- Panneau droit -->
+      <div class="door-half door-right" id="doorRight">
+        <div class="door-planks"></div>
+        <div class="door-frame-inner">
+          <div class="door-panel-top"></div>
+          <div class="door-panel-bot"></div>
+        </div>
+        <div class="door-handle dh-left"></div>
+      </div>
+
+      <!-- Texte d'invitation centré sur la porte -->
+      <div class="door-center-text" id="doorCenterText">
+        <p class="dct-names">Abdelali &amp; Zahia</p>
+        <p class="dct-date">22 Juin 2026</p>
+        <div class="dct-line"></div>
+        <p class="dct-hint">✨ Touchez pour ouvrir ✨</p>
+      </div>
+
     </div>
 
   </div>

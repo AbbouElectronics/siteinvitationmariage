@@ -1,13 +1,7 @@
 // ═══════════════════════════════════════════════
-//  PORTE PHOTO → VIDÉO OISEAUX
+//  PORTE PLEIN ÉCRAN → VIDÉO OISEAUX
 // ═══════════════════════════════════════════════
-
-// ─── METTEZ ICI L'ID DE VOTRE VIDÉO YOUTUBE ────
-// Exemple : pour https://www.youtube.com/watch?v=abc123XYZ
-// → mettez  'abc123XYZ'
-// Donnez le lien YouTube à l'assistant pour qu'il le mette automatiquement
-const BIRDS_VIDEO_ID = 'RtkHCjciQXg';
-// ────────────────────────────────────────────────
+const BIRDS_VIDEO_ID = 'IybDTL5TrAI'; // youtube.com/watch?v=IybDTL5TrAI
 
 let doorOpened = false;
 
@@ -15,54 +9,37 @@ function openDoor() {
   if (doorOpened) return;
   doorOpened = true;
 
-  const doorScene    = document.getElementById('doorScene');
-  const videoScene   = document.getElementById('videoScene');
-  const birdsIframe  = document.getElementById('birdsIframe');
+  // Masquer le texte sur la porte
+  const centerText = document.getElementById('doorCenterText');
+  if (centerText) centerText.classList.add('hidden');
 
-  // Transition : porte → vidéo
-  doorScene.classList.add('fade-out');
+  // Charger la vidéo YouTube immédiatement
+  const iframe = document.getElementById('birdsIframe');
+  iframe.src =
+    `https://www.youtube.com/embed/${BIRDS_VIDEO_ID}` +
+    `?autoplay=1&mute=1&loop=1&playlist=${BIRDS_VIDEO_ID}` +
+    `&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3`;
 
+  // Ouvrir les deux panneaux (animation lente 4.2s)
+  document.getElementById('doorLeft').classList.add('open');
+  document.getElementById('doorRight').classList.add('open');
+
+  // Désactiver le clic sur la porte une fois ouverte
+  document.getElementById('doorWrap').style.pointerEvents = 'none';
+
+  // Afficher le texte sur la vidéo après 2.5s (porte à moitié ouverte)
   setTimeout(() => {
-    doorScene.style.display = 'none';
-    videoScene.classList.add('active');
+    const behindText = document.getElementById('behindText');
+    if (behindText) behindText.classList.add('visible');
+  }, 2500);
 
-    // Charger la vidéo YouTube (autoplay + muet + sans contrôles)
-    if (BIRDS_VIDEO_ID && BIRDS_VIDEO_ID !== 'REMPLACEZ_PAR_VOTRE_VIDEO_ID') {
-      birdsIframe.src =
-        `https://www.youtube.com/embed/${BIRDS_VIDEO_ID}` +
-        `?autoplay=1&mute=1&loop=1&playlist=${BIRDS_VIDEO_ID}` +
-        `&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3`;
-    } else {
-      // Pas de vidéo configurée → fond sombre avec message
-      videoScene.style.background =
-        'linear-gradient(180deg,#0d1f35 0%,#1a4060 20%,#5ab0d0 50%,#f0a830 80%,#3a6018 100%)';
-    }
-
-    // Lancer le compte à rebours 10 secondes
-    startVideoTimer(10);
-  }, 800);
-}
-
-function startVideoTimer(seconds) {
-  const fill = document.getElementById('videoProgressFill');
-  let elapsed = 0;
-
-  const tick = setInterval(() => {
-    elapsed++;
-    const pct = (elapsed / seconds) * 100;
-    if (fill) fill.style.width = pct + '%';
-    if (elapsed >= seconds) {
-      clearInterval(tick);
-      closeOpening();
-    }
-  }, 1000);
+  // Fermeture automatique après 12s (laisse voir la vidéo ~8s après ouverture)
+  setTimeout(closeOpening, 12000);
 }
 
 function closeOpening() {
-  // Stopper la vidéo YouTube
   const iframe = document.getElementById('birdsIframe');
   if (iframe) iframe.src = 'about:blank';
-
   document.getElementById('opening-overlay').classList.add('hidden');
   startPetals();
   tryAutoPlay();

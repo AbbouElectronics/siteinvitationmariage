@@ -30,167 +30,231 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   ÉCRAN D'OUVERTURE — PHOTO PORTE + VIDÉO
+   ÉCRAN D'OUVERTURE — PORTE PLEIN ÉCRAN + VIDÉO
 ═══════════════════════════════════════════════ */
 .opening-overlay {
   position: fixed; inset: 0;
   z-index: 9999;
-  transition: opacity 1.4s ease, visibility 1.4s ease;
+  transition: opacity 1.6s ease, visibility 1.6s ease;
   overflow: hidden;
 }
 .opening-overlay.hidden {
   opacity: 0; visibility: hidden; pointer-events: none;
 }
 
-/* ── SCÈNE 1 : PHOTO DE LA PORTE ── */
-.door-scene {
+/* ── VIDÉO DERRIÈRE (fond) ── */
+.behind-door {
   position: absolute; inset: 0;
-  cursor: pointer;
-  z-index: 2;
-  transition: opacity 1s ease;
+  z-index: 1;
+  background: #050a0f;
 }
-.door-scene.fade-out { opacity: 0; pointer-events: none; }
-
-.door-photo-bg {
+#birdsIframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 177.78vh; /* 16/9 ratio */
+  height: 56.25vw;
+  min-width: 100%;
+  min-height: 100%;
+  border: none;
+  pointer-events: none;
+}
+.behind-text {
   position: absolute; inset: 0;
-  /* Photo porte blanche avec roses — Unsplash (gratuit) */
-  background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center;
-  background-color: #f5f0e8; /* fallback si image ne charge pas */
-  filter: brightness(0.92);
-}
-
-.door-tap-overlay {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(ellipse at center,
-    rgba(0,0,0,0.35) 0%,
-    rgba(0,0,0,0.1) 60%,
-    transparent 100%
-  );
-}
-
-.door-tap-card {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
   text-align: center;
-  color: white;
-  padding: 2.5rem 3rem;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(212,175,55,0.4);
-  border-radius: 20px;
-  animation: fadeInUp 1.5s ease;
+  padding: 2rem;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0.1) 0%,
+    rgba(0,0,0,0.45) 50%,
+    rgba(0,0,0,0.2) 100%
+  );
+  opacity: 0;
+  transition: opacity 1.2s ease;
 }
-.door-tap-names {
+.behind-text.visible { opacity: 1; }
+.bt-names {
   font-family: var(--script);
-  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-size: clamp(3rem, 10vw, 7rem);
   color: var(--gold);
-  text-shadow: 0 0 30px rgba(212,175,55,0.6);
+  text-shadow: 0 0 50px rgba(212,175,55,0.7), 2px 2px 12px rgba(0,0,0,0.9);
   line-height: 1;
+  animation: fadeInUp 1s ease;
 }
-.door-tap-date {
-  font-family: var(--display);
-  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+.bt-venue {
+  font-family: var(--serif);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
   letter-spacing: 5px;
   text-transform: uppercase;
   color: rgba(255,255,255,0.85);
-  margin-top: 0.4rem;
+  text-shadow: 1px 1px 8px rgba(0,0,0,0.9);
+  margin: 0.8rem 0 2.5rem;
+  animation: fadeInUp 1s ease 0.3s both;
 }
-.door-tap-line {
-  width: 60px; height: 1px;
-  background: var(--gold);
-  margin: 1.2rem auto;
-}
-.door-tap-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  display: block;
-  animation: pulse 2s ease-in-out infinite;
-}
-.door-tap-hint {
-  font-family: var(--serif);
-  font-size: 0.9rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-}
-
-/* ── SCÈNE 2 : VIDÉO DES OISEAUX ── */
-.video-scene {
-  position: absolute; inset: 0;
-  display: none;
-  z-index: 3;
-  background: #000;
-}
-.video-scene.active { display: block; }
-
-#birdsIframe {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  border: none;
-  /* Pour contourner les marges YouTube en plein écran */
-  top: -60px; height: calc(100% + 120px);
-  pointer-events: none;
-}
-
-.video-text-overlay {
-  position: absolute;
-  bottom: 80px; left: 0; right: 0;
-  text-align: center;
-  animation: fadeInUp 1.5s ease 1s both;
-  pointer-events: none;
-}
-.vto-venue {
-  font-family: var(--script);
-  font-size: clamp(2rem, 6vw, 4rem);
-  color: var(--gold);
-  text-shadow: 0 0 30px rgba(212,175,55,0.7), 2px 2px 10px rgba(0,0,0,0.8);
-}
-.vto-sub {
-  font-family: var(--serif);
-  font-size: 0.85rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
-  text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
-  margin-top: 0.4rem;
-}
-
-.video-progress-wrap {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 4px;
-  background: rgba(255,255,255,0.15);
-}
-.video-progress-fill {
-  height: 100%;
-  background: var(--gold);
-  width: 0%;
-  transition: width 1s linear;
-}
-
-.video-skip-btn {
-  position: absolute;
-  top: 20px; right: 20px;
-  padding: 0.6rem 1.4rem;
-  background: rgba(0,0,0,0.5);
-  border: 1px solid rgba(212,175,55,0.5);
-  border-radius: 30px;
+.bt-enter {
+  padding: 1rem 3rem;
+  background: rgba(212,175,55,0.2);
+  border: 1.5px solid var(--gold);
+  border-radius: 50px;
   color: var(--gold);
   font-family: var(--serif);
-  font-size: 0.85rem;
-  letter-spacing: 2px;
+  font-size: 1rem;
+  letter-spacing: 3px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
+  transition: all 0.35s ease;
+  backdrop-filter: blur(6px);
+  animation: fadeInUp 1s ease 0.6s both;
 }
-.video-skip-btn:hover {
+.bt-enter:hover { background: var(--gold); color: var(--dark); }
+
+/* ── PORTE DOUBLE PLEIN ÉCRAN ── */
+.door-wrap {
+  position: absolute; inset: 0;
+  display: flex;
+  z-index: 2;
+  cursor: pointer;
+  perspective: 3500px;
+  transform-style: preserve-3d;
+}
+
+.door-half {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  will-change: transform;
+  overflow: hidden;
+  /* Planches verticales blanches */
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(160,140,110,0.18) 0px,
+      rgba(160,140,110,0.18) 2px,
+      transparent 2px,
+      transparent 46px
+    ),
+    linear-gradient(170deg, #faf8f4 0%, #f0ece3 35%, #e8e3d8 70%, #ede8de 100%);
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.08);
+}
+
+/* Cadre doré sur les bords extérieurs */
+.door-left {
+  transform-origin: left center;
+  border-right: 5px solid #c8ba96;
+  box-shadow:
+    inset -8px 0 20px rgba(0,0,0,0.08),
+    inset 0 0 100px rgba(0,0,0,0.06);
+}
+.door-right {
+  transform-origin: right center;
+  border-left: 5px solid #c8ba96;
+  box-shadow:
+    inset 8px 0 20px rgba(0,0,0,0.08),
+    inset 0 0 100px rgba(0,0,0,0.06);
+}
+
+/* Animation d'ouverture — lente et élégante */
+.door-left.open {
+  transform: perspective(3500px) rotateY(-135deg);
+  transition: transform 4.2s cubic-bezier(0.55, 0, 0.2, 1);
+}
+.door-right.open {
+  transform: perspective(3500px) rotateY(135deg);
+  transition: transform 4.2s cubic-bezier(0.55, 0, 0.2, 1);
+}
+
+/* Panneaux décoratifs intérieurs */
+.door-frame-inner {
+  position: absolute;
+  inset: 6% 14%;
+  border: 2px solid rgba(180,165,135,0.55);
+  border-radius: 2px;
+  display: flex; flex-direction: column; gap: 5%;
+  padding: 5% 8%;
+}
+.door-panel-top { flex: 0.7; }
+.door-panel-bot { flex: 1.3; }
+.door-panel-top,
+.door-panel-bot {
+  background: linear-gradient(145deg,
+    rgba(255,255,255,0.75),
+    rgba(235,230,218,0.4),
+    rgba(215,208,195,0.3)
+  );
+  border: 1.5px solid rgba(185,170,140,0.4);
+  border-radius: 3px;
+  box-shadow:
+    inset 3px 3px 10px rgba(255,255,255,0.85),
+    inset -3px -3px 10px rgba(0,0,0,0.04);
+}
+
+/* Poignée en or */
+.door-handle {
+  position: absolute;
+  top: 52%;
+  width: 16px;
+  height: 70px;
+  background: linear-gradient(180deg, #edd060 0%, #c8a020 25%, #d4af37 55%, #a07010 100%);
+  border-radius: 8px;
+  box-shadow: 2px 3px 10px rgba(0,0,0,0.45);
+}
+.door-handle::before {
+  content: '';
+  position: absolute;
+  top: -16px; left: 50%; transform: translateX(-50%);
+  width: 26px; height: 26px;
+  background: radial-gradient(circle at 35% 35%, #f0d060 0%, #b08820 60%, #8a6010 100%);
+  border-radius: 50%;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.45);
+}
+.dh-right { right: 14px; }
+.dh-left  { left: 14px; }
+
+/* Texte centré sur la porte (span les deux panneaux) */
+.door-center-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 5;
+  pointer-events: none;
+  padding: 2.5rem 3.5rem;
+  background: rgba(245,240,230,0.18);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 18px;
+  width: min(90%, 540px);
+  transition: opacity 0.6s ease;
+}
+.door-center-text.hidden { opacity: 0; }
+.dct-names {
+  font-family: var(--script);
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(212,175,55,0.5), 1px 1px 6px rgba(0,0,0,0.2);
+  line-height: 1;
+}
+.dct-date {
+  font-family: var(--display);
+  font-size: clamp(0.8rem, 2.2vw, 1.1rem);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: rgba(60,30,20,0.8);
+  margin-top: 0.5rem;
+}
+.dct-line {
+  width: 55px; height: 1.5px;
   background: var(--gold);
-  color: var(--dark);
+  margin: 1rem auto;
 }
-
-
-
+.dct-hint {
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(60,30,20,0.6);
+  animation: pulse 2.2s ease-in-out infinite;
+}
 
 /* ═══════════════════════════════════════════════
    PÉTALES FLOTTANTS
