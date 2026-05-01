@@ -6,7 +6,7 @@
 // Exemple : pour https://www.youtube.com/watch?v=abc123XYZ
 // → mettez  'abc123XYZ'
 // Donnez le lien YouTube à l'assistant pour qu'il le mette automatiquement
-const BIRDS_VIDEO_ID = 'REMPLACEZ_PAR_VOTRE_VIDEO_ID';
+const BIRDS_VIDEO_ID = 'RtkHCjciQXg';
 // ────────────────────────────────────────────────
 
 let doorOpened = false;
