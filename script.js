@@ -1,27 +1,16 @@
 // ═══════════════════════════════════════════════
-//  PORTE PLEIN ÉCRAN → VIDÉO OISEAUX
+//  PORTE PLEIN ÉCRAN → VIDÉO LOCALE
 // ═══════════════════════════════════════════════
-const BIRDS_VIDEO_ID = 'IybDTL5TrAI'; // youtube.com/watch?v=IybDTL5TrAI
-
 let doorOpened = false;
 
 function openDoor() {
   if (doorOpened) return;
   doorOpened = true;
 
-  // Charger la vidéo YouTube avant d'ouvrir (préchauffage ~1s)
-  const iframe = document.getElementById('birdsIframe');
-  iframe.src =
-    `https://www.youtube.com/embed/${BIRDS_VIDEO_ID}` +
-    `?autoplay=1&mute=1&loop=1&playlist=${BIRDS_VIDEO_ID}` +
-    `&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3`;
-
-  // Attendre 800ms que la vidéo commence à charger, puis ouvrir la porte
-  setTimeout(() => {
-    document.getElementById('dpLeft').classList.add('open');
-    document.getElementById('dpRight').classList.add('open');
-    document.getElementById('medScene').style.pointerEvents = 'none';
-  }, 800);
+  // Ouvrir les deux panneaux (vidéo déjà en train de jouer derrière)
+  document.getElementById('dpLeft').classList.add('open');
+  document.getElementById('dpRight').classList.add('open');
+  document.getElementById('medScene').style.pointerEvents = 'none';
 
   // Afficher le texte sur la vidéo après 4s (porte bien ouverte)
   setTimeout(() => {
@@ -34,8 +23,8 @@ function openDoor() {
 }
 
 function closeOpening() {
-  const iframe = document.getElementById('birdsIframe');
-  if (iframe) iframe.src = 'about:blank';
+  const video = document.getElementById('doorVideo');
+  if (video) video.pause();
   document.getElementById('opening-overlay').classList.add('hidden');
   startPetals();
   tryAutoPlay();
