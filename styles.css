@@ -30,7 +30,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   ÉCRAN D'OUVERTURE — PORTE PLEIN ÉCRAN + VIDÉO
+   ÉCRAN D'OUVERTURE — SCÈNE MÉDITERRANÉENNE
 ═══════════════════════════════════════════════ */
 .opening-overlay {
   position: fixed; inset: 0;
@@ -38,24 +38,20 @@ body {
   transition: opacity 1.6s ease, visibility 1.6s ease;
   overflow: hidden;
 }
-.opening-overlay.hidden {
-  opacity: 0; visibility: hidden; pointer-events: none;
-}
+.opening-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-/* ── VIDÉO DERRIÈRE (fond) ── */
+/* Vidéo château derrière la porte */
 .behind-door {
   position: absolute; inset: 0;
   z-index: 1;
-  background: #050a0f;
+  background: #060c12;
 }
 #birdsIframe {
   position: absolute;
   top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 177.78vh; /* 16/9 ratio */
-  height: 56.25vw;
-  min-width: 100%;
-  min-height: 100%;
+  transform: translate(-50%,-50%);
+  width: 177.78vh; height: 56.25vw;
+  min-width: 100%; min-height: 100%;
   border: none;
   pointer-events: none;
 }
@@ -63,34 +59,28 @@ body {
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  background: linear-gradient(180deg,
-    rgba(0,0,0,0.1) 0%,
-    rgba(0,0,0,0.45) 50%,
-    rgba(0,0,0,0.2) 100%
-  );
+  text-align: center; padding: 2rem;
+  background: linear-gradient(180deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.15) 100%);
   opacity: 0;
-  transition: opacity 1.2s ease;
+  transition: opacity 1.4s ease;
 }
 .behind-text.visible { opacity: 1; }
 .bt-names {
   font-family: var(--script);
   font-size: clamp(3rem, 10vw, 7rem);
   color: var(--gold);
-  text-shadow: 0 0 50px rgba(212,175,55,0.7), 2px 2px 12px rgba(0,0,0,0.9);
+  text-shadow: 0 0 50px rgba(212,175,55,0.8), 2px 2px 12px rgba(0,0,0,0.9);
   line-height: 1;
-  animation: fadeInUp 1s ease;
+  animation: fadeInUp 1.2s ease;
 }
 .bt-venue {
   font-family: var(--serif);
-  font-size: clamp(0.85rem, 2vw, 1.1rem);
-  letter-spacing: 5px;
-  text-transform: uppercase;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  letter-spacing: 5px; text-transform: uppercase;
   color: rgba(255,255,255,0.85);
   text-shadow: 1px 1px 8px rgba(0,0,0,0.9);
   margin: 0.8rem 0 2.5rem;
-  animation: fadeInUp 1s ease 0.3s both;
+  animation: fadeInUp 1.2s ease 0.3s both;
 }
 .bt-enter {
   padding: 1rem 3rem;
@@ -98,163 +88,145 @@ body {
   border: 1.5px solid var(--gold);
   border-radius: 50px;
   color: var(--gold);
-  font-family: var(--serif);
-  font-size: 1rem;
-  letter-spacing: 3px;
-  cursor: pointer;
-  transition: all 0.35s ease;
-  backdrop-filter: blur(6px);
-  animation: fadeInUp 1s ease 0.6s both;
+  font-family: var(--serif); font-size: 1rem; letter-spacing: 3px;
+  cursor: pointer; transition: all 0.35s ease; backdrop-filter: blur(6px);
+  animation: fadeInUp 1.2s ease 0.6s both;
 }
 .bt-enter:hover { background: var(--gold); color: var(--dark); }
 
-/* ── PORTE DOUBLE PLEIN ÉCRAN ── */
-.door-wrap {
+/* ══ SCÈNE MÉDITERRANÉENNE ══ */
+.med-scene {
   position: absolute; inset: 0;
-  display: flex;
   z-index: 2;
+  display: flex;
   cursor: pointer;
-  perspective: 3500px;
-  transform-style: preserve-3d;
+  /* Mur blanc plâtre */
+  background: linear-gradient(180deg, #f2ede6 0%, #ede8e0 60%, #e8e2d8 100%);
 }
 
-.door-half {
+/* Murs latéraux */
+.wall {
+  flex-shrink: 0;
+  width: clamp(80px, 18vw, 220px);
+  position: relative;
+  background: linear-gradient(180deg, #f5f0e8 0%, #ede8de 100%);
+  /* Légère texture plâtre */
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.04);
+}
+
+/* Branche nue (mur gauche) */
+.branch-svg {
+  position: absolute;
+  right: -10px; top: 5%;
+  width: 100%; height: 88%;
+  opacity: 0.75;
+}
+
+/* Bougainvillées (mur droit) */
+.bougainvillea {
+  position: absolute;
+  left: -5px; top: 8%;
+  display: flex; flex-direction: column;
+  gap: clamp(4px, 1vh, 10px);
+  font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+  line-height: 1;
+}
+
+/* Zone de la porte */
+.door-area {
   flex: 1;
-  height: 100%;
+  position: relative;
+  display: flex;
+  /* Cadre/linteau de la porte */
+  border-left:  clamp(6px,1.2vw,18px) solid #c8ba96;
+  border-right: clamp(6px,1.2vw,18px) solid #c8ba96;
+  perspective: 3200px;
+  transform-style: preserve-3d;
+}
+.door-top-bar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: clamp(14px,2.5vh,28px);
+  background: linear-gradient(180deg, #d0c29a, #c2b488, #cabe94);
+  z-index: 10;
+}
+.door-bottom-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: clamp(10px,1.8vh,20px);
+  background: linear-gradient(180deg, #b8aa80, #a89870);
+  z-index: 10;
+}
+.door-center-seam {
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  background: linear-gradient(180deg, #1a3468, #0e2250, #1a3468);
+  z-index: 10;
+}
+
+/* Panneaux de la porte bleue */
+.door-panel {
+  flex: 1; height: 100%;
   position: relative;
   will-change: transform;
-  overflow: hidden;
-  /* Planches verticales blanches */
+  /* Bleu méditerranéen avec planches verticales */
   background:
     repeating-linear-gradient(
       90deg,
-      rgba(160,140,110,0.18) 0px,
-      rgba(160,140,110,0.18) 2px,
-      transparent 2px,
-      transparent 46px
+      rgba(0,0,20,0.12) 0px,
+      rgba(0,0,20,0.12) 2px,
+      rgba(255,255,255,0.06) 2px,
+      rgba(255,255,255,0.06) 6px,
+      transparent 6px,
+      transparent 44px
     ),
-    linear-gradient(170deg, #faf8f4 0%, #f0ece3 35%, #e8e3d8 70%, #ede8de 100%);
-  box-shadow: inset 0 0 100px rgba(0,0,0,0.08);
+    linear-gradient(175deg, #4472C0 0%, #3560B0 20%, #2A52A0 50%, #224894 75%, #1C3E88 100%);
+  box-shadow: inset 0 0 80px rgba(0,0,40,0.25);
 }
-
-/* Cadre doré sur les bords extérieurs */
-.door-left {
+.dp-left {
   transform-origin: left center;
-  border-right: 5px solid #c8ba96;
-  box-shadow:
-    inset -8px 0 20px rgba(0,0,0,0.08),
-    inset 0 0 100px rgba(0,0,0,0.06);
+  border-right: 2px solid #1a3878;
+  transition: transform 4.5s cubic-bezier(0.6, 0, 0.25, 1);
 }
-.door-right {
+.dp-right {
   transform-origin: right center;
-  border-left: 5px solid #c8ba96;
-  box-shadow:
-    inset 8px 0 20px rgba(0,0,0,0.08),
-    inset 0 0 100px rgba(0,0,0,0.06);
+  border-left: 2px solid #1a3878;
+  transition: transform 4.5s cubic-bezier(0.6, 0, 0.25, 1);
 }
+.dp-left.open  { transform: perspective(3200px) rotateY(-130deg); }
+.dp-right.open { transform: perspective(3200px) rotateY(130deg); }
 
-/* Animation d'ouverture — lente et élégante */
-.door-left.open {
-  transform: perspective(3500px) rotateY(-135deg);
-  transition: transform 4.2s cubic-bezier(0.55, 0, 0.2, 1);
-}
-.door-right.open {
-  transform: perspective(3500px) rotateY(135deg);
-  transition: transform 4.2s cubic-bezier(0.55, 0, 0.2, 1);
-}
-
-/* Panneaux décoratifs intérieurs */
-.door-frame-inner {
+/* Poignées (barres laiton horizontales comme dans la photo) */
+.dp-handle {
   position: absolute;
-  inset: 6% 14%;
-  border: 2px solid rgba(180,165,135,0.55);
-  border-radius: 2px;
-  display: flex; flex-direction: column; gap: 5%;
-  padding: 5% 8%;
+  top: 56%;
 }
-.door-panel-top { flex: 0.7; }
-.door-panel-bot { flex: 1.3; }
-.door-panel-top,
-.door-panel-bot {
-  background: linear-gradient(145deg,
-    rgba(255,255,255,0.75),
-    rgba(235,230,218,0.4),
-    rgba(215,208,195,0.3)
-  );
-  border: 1.5px solid rgba(185,170,140,0.4);
-  border-radius: 3px;
-  box-shadow:
-    inset 3px 3px 10px rgba(255,255,255,0.85),
-    inset -3px -3px 10px rgba(0,0,0,0.04);
-}
-
-/* Poignée en or */
-.door-handle {
-  position: absolute;
-  top: 52%;
-  width: 16px;
-  height: 70px;
-  background: linear-gradient(180deg, #edd060 0%, #c8a020 25%, #d4af37 55%, #a07010 100%);
-  border-radius: 8px;
-  box-shadow: 2px 3px 10px rgba(0,0,0,0.45);
-}
-.door-handle::before {
+/* Barre verticale (grip) */
+.dp-handle::before {
   content: '';
   position: absolute;
-  top: -16px; left: 50%; transform: translateX(-50%);
-  width: 26px; height: 26px;
-  background: radial-gradient(circle at 35% 35%, #f0d060 0%, #b08820 60%, #8a6010 100%);
-  border-radius: 50%;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.45);
+  top: 0;
+  width: 15px; height: 65px;
+  background: linear-gradient(90deg, #c8980a, #e8c030, #d4aa20, #b08010);
+  border-radius: 8px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
 }
-.dh-right { right: 14px; }
-.dh-left  { left: 14px; }
-
-/* Texte centré sur la porte (span les deux panneaux) */
-.door-center-text {
+/* Barre horizontale (levier) */
+.dp-handle::after {
+  content: '';
   position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 5;
-  pointer-events: none;
-  padding: 2.5rem 3.5rem;
-  background: rgba(245,240,230,0.18);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(212,175,55,0.35);
-  border-radius: 18px;
-  width: min(90%, 540px);
-  transition: opacity 0.6s ease;
+  top: 38px;
+  width: 55px; height: 13px;
+  background: linear-gradient(180deg, #e8c030, #c89010, #d4aa20);
+  border-radius: 7px;
+  box-shadow: 2px 3px 8px rgba(0,0,0,0.5);
 }
-.door-center-text.hidden { opacity: 0; }
-.dct-names {
-  font-family: var(--script);
-  font-size: clamp(2.8rem, 8vw, 5.5rem);
-  color: var(--gold);
-  text-shadow: 0 0 30px rgba(212,175,55,0.5), 1px 1px 6px rgba(0,0,0,0.2);
-  line-height: 1;
-}
-.dct-date {
-  font-family: var(--display);
-  font-size: clamp(0.8rem, 2.2vw, 1.1rem);
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  color: rgba(60,30,20,0.8);
-  margin-top: 0.5rem;
-}
-.dct-line {
-  width: 55px; height: 1.5px;
-  background: var(--gold);
-  margin: 1rem auto;
-}
-.dct-hint {
-  font-family: var(--serif);
-  font-size: 0.78rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: rgba(60,30,20,0.6);
-  animation: pulse 2.2s ease-in-out infinite;
-}
+.dph-right { right: 12px; }
+.dph-right::before { right: 0; }
+.dph-right::after  { right: 0; }
+.dph-left  { left: 12px; }
+.dph-left::before  { left: 0; }
+.dph-left::after   { left: 0; }
+
 
 /* ═══════════════════════════════════════════════
    PÉTALES FLOTTANTS

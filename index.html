@@ -10,25 +10,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
   <!-- ══════════════════════════════════════════ -->
-  <!--  ÉCRAN D'OUVERTURE — PORTE + VIDÉO        -->
+  <!--  ÉCRAN D'OUVERTURE — SCÈNE MÉDITERRANÉENNE -->
   <!-- ══════════════════════════════════════════ -->
   <div id="opening-overlay" class="opening-overlay">
 
-    <!-- ── VIDÉO DERRIÈRE LA PORTE (joue en fond) ── -->
+    <!-- Vidéo derrière (visible quand la porte s'ouvre) -->
     <div class="behind-door" id="behindDoor">
-      <iframe
-        id="birdsIframe"
-        src="about:blank"
-        frameborder="0"
-        allow="autoplay; fullscreen; encrypted-media"
-        allowfullscreen
-      ></iframe>
-      <!-- Texte visible quand la porte est ouverte -->
+      <iframe id="birdsIframe" src="about:blank" frameborder="0"
+        allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
       <div class="behind-text" id="behindText">
         <p class="bt-names">Abdelali &amp; Zahia</p>
         <p class="bt-venue">O'rale Domaine ✨</p>
@@ -36,39 +30,66 @@
       </div>
     </div>
 
-    <!-- ── PORTE DOUBLE PLEIN ÉCRAN ── -->
-    <div class="door-wrap" id="doorWrap" onclick="openDoor()">
+    <!-- Scène complète : mur + porte + fleurs -->
+    <div class="med-scene" id="medScene" onclick="openDoor()">
 
-      <!-- Panneau gauche -->
-      <div class="door-half door-left" id="doorLeft">
-        <div class="door-planks"></div>
-        <div class="door-frame-inner">
-          <div class="door-panel-top"></div>
-          <div class="door-panel-bot"></div>
-        </div>
-        <div class="door-handle dh-right"></div>
+      <!-- Mur gauche + branche nue -->
+      <div class="wall wall-left">
+        <svg class="branch-svg" viewBox="0 0 100 600" preserveAspectRatio="none">
+          <!-- Tronc principal -->
+          <path d="M70,600 C68,480 62,380 58,260 C55,160 52,80 50,10"
+                stroke="#9B8B72" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- Branches gauche -->
+          <path d="M62,320 C50,300 30,280 10,270"
+                stroke="#9B8B72" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M58,220 C45,200 20,185 5,180"
+                stroke="#9B8B72" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M55,150 C45,135 28,120 18,112"
+                stroke="#9B8B72" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Branches droite -->
+          <path d="M64,360 C78,345 90,335 100,330"
+                stroke="#9B8B72" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M60,270 C72,255 85,248 98,245"
+                stroke="#9B8B72" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- Petits rameaux -->
+          <path d="M10,270 C5,260 2,252 0,246"
+                stroke="#9B8B72" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M30,280 C25,268 22,260 20,252"
+                stroke="#9B8B72" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M5,180 C0,172 -2,164 -3,158"
+                stroke="#9B8B72" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        </svg>
       </div>
 
-      <!-- Panneau droit -->
-      <div class="door-half door-right" id="doorRight">
-        <div class="door-planks"></div>
-        <div class="door-frame-inner">
-          <div class="door-panel-top"></div>
-          <div class="door-panel-bot"></div>
+      <!-- PORTE BLEUE -->
+      <div class="door-area">
+        <!-- Cadre supérieur de la porte -->
+        <div class="door-top-bar"></div>
+        <!-- Panneau gauche -->
+        <div class="door-panel dp-left" id="dpLeft">
+          <div class="dp-handle dph-right"></div>
         </div>
-        <div class="door-handle dh-left"></div>
+        <!-- Séparation -->
+        <div class="door-center-seam"></div>
+        <!-- Panneau droit -->
+        <div class="door-panel dp-right" id="dpRight">
+          <div class="dp-handle dph-left"></div>
+        </div>
+        <!-- Seuil bas -->
+        <div class="door-bottom-bar"></div>
       </div>
 
-      <!-- Texte d'invitation centré sur la porte -->
-      <div class="door-center-text" id="doorCenterText">
-        <p class="dct-names">Abdelali &amp; Zahia</p>
-        <p class="dct-date">22 Juin 2026</p>
-        <div class="dct-line"></div>
-        <p class="dct-hint">✨ Touchez pour ouvrir ✨</p>
+      <!-- Mur droit + bougainvillées -->
+      <div class="wall wall-right">
+        <div class="bougainvillea">
+          <span>🌿</span><span>🌺</span><span>🌿</span>
+          <span>🌸</span><span>🌿</span><span>🌺</span>
+          <span>🌸</span><span>🌿</span><span>🌺</span>
+          <span>🌿</span><span>🌸</span><span>🌺</span>
+        </div>
       </div>
 
     </div>
-
   </div>
 
   <!-- Pétales flottants -->

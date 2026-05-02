@@ -9,32 +9,28 @@ function openDoor() {
   if (doorOpened) return;
   doorOpened = true;
 
-  // Masquer le texte sur la porte
-  const centerText = document.getElementById('doorCenterText');
-  if (centerText) centerText.classList.add('hidden');
-
-  // Charger la vidéo YouTube immédiatement
+  // Charger la vidéo YouTube avant d'ouvrir (préchauffage ~1s)
   const iframe = document.getElementById('birdsIframe');
   iframe.src =
     `https://www.youtube.com/embed/${BIRDS_VIDEO_ID}` +
     `?autoplay=1&mute=1&loop=1&playlist=${BIRDS_VIDEO_ID}` +
     `&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3`;
 
-  // Ouvrir les deux panneaux (animation lente 4.2s)
-  document.getElementById('doorLeft').classList.add('open');
-  document.getElementById('doorRight').classList.add('open');
+  // Attendre 800ms que la vidéo commence à charger, puis ouvrir la porte
+  setTimeout(() => {
+    document.getElementById('dpLeft').classList.add('open');
+    document.getElementById('dpRight').classList.add('open');
+    document.getElementById('medScene').style.pointerEvents = 'none';
+  }, 800);
 
-  // Désactiver le clic sur la porte une fois ouverte
-  document.getElementById('doorWrap').style.pointerEvents = 'none';
-
-  // Afficher le texte sur la vidéo après 2.5s (porte à moitié ouverte)
+  // Afficher le texte sur la vidéo après 4s (porte bien ouverte)
   setTimeout(() => {
     const behindText = document.getElementById('behindText');
     if (behindText) behindText.classList.add('visible');
-  }, 2500);
+  }, 4000);
 
-  // Fermeture automatique après 12s (laisse voir la vidéo ~8s après ouverture)
-  setTimeout(closeOpening, 12000);
+  // Fermeture automatique après 14s
+  setTimeout(closeOpening, 14000);
 }
 
 function closeOpening() {
