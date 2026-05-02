@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════
-//  PORTE PLEIN ÉCRAN → VIDÉO LOCALE
+//  PORTE PLEIN ÉCRAN → VIDÉO YOUTUBE
 // ═══════════════════════════════════════════════
 let doorOpened = false;
 
@@ -27,8 +27,8 @@ function openDoor() {
 }
 
 function closeOpening() {
-  const video = document.getElementById('doorVideo');
-  if (video) video.pause();
+  const iframe = document.getElementById('doorVideo');
+  if (iframe) iframe.src = 'about:blank';
   document.getElementById('opening-overlay').classList.add('hidden');
   startPetals();
   tryAutoPlay();

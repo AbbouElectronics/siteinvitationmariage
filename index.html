@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 
@@ -19,13 +19,13 @@
   <!-- ══════════════════════════════════════════ -->
   <div id="opening-overlay" class="opening-overlay">
 
-    <!-- Vidéo derrière (joue dès le chargement, révélée quand la porte s'ouvre) -->
+    <!-- Vidéo derrière (chargée dès le début, révélée quand la porte s'ouvre) -->
     <div class="behind-door" id="behindDoor">
-      <video id="doorVideo" autoplay muted loop playsinline preload="auto">
-        <source src="video/invitation-video.mp4" type="video/mp4">
-        <source src="video/invitation-video.mov" type="video/quicktime">
-        <source src="video/invitation-video.webm" type="video/webm">
-      </video>
+      <iframe id="doorVideo"
+        src="https://www.youtube.com/embed/IybDTL5TrAI?autoplay=1&mute=1&loop=1&playlist=IybDTL5TrAI&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; encrypted-media"
+        allowfullscreen></iframe>
       <div class="behind-text" id="behindText">
         <p class="bt-names">Abdelali &amp; Zahia</p>
         <p class="bt-venue">O'rale Domaine ✨</p>
