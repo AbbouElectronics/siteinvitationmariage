@@ -40,11 +40,12 @@ body {
 }
 .opening-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-/* Vidéo château derrière la porte */
+/* Vidéo derrière la porte */
 .behind-door {
   position: absolute; inset: 0;
   z-index: 1;
-  background: #060c12;
+  /* Fond élégant pendant le chargement de la vidéo */
+  background: radial-gradient(ellipse at center, #1a2a4a 0%, #0a1020 60%, #050810 100%);
 }
 #doorVideo {
   position: absolute;
@@ -225,6 +226,38 @@ body {
 .dph-left::before  { left: 0; }
 .dph-left::after   { left: 0; }
 
+/* Texte hint sur la porte */
+.door-hint {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  pointer-events: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  white-space: nowrap;
+}
+.door-hint.hidden { opacity: 0; }
+.door-hint p {
+  font-family: var(--serif);
+  font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+.door-hint-icon {
+  color: var(--gold);
+  font-size: 0.65rem;
+  opacity: 0.7;
+  animation: pulse 2.5s ease-in-out infinite;
+}
 
 /* ═══════════════════════════════════════════════
    PÉTALES FLOTTANTS

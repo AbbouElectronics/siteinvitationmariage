@@ -7,12 +7,16 @@ function openDoor() {
   if (doorOpened) return;
   doorOpened = true;
 
+  // Masquer le hint
+  const hint = document.getElementById('doorHint');
+  if (hint) hint.classList.add('hidden');
+
   // Ouvrir les deux panneaux (vidéo déjà en train de jouer derrière)
   document.getElementById('dpLeft').classList.add('open');
   document.getElementById('dpRight').classList.add('open');
   document.getElementById('medScene').style.pointerEvents = 'none';
 
-  // Afficher le texte sur la vidéo après 4s (porte bien ouverte)
+  // Afficher noms + bouton sur la vidéo après 4s (porte bien ouverte)
   setTimeout(() => {
     const behindText = document.getElementById('behindText');
     if (behindText) behindText.classList.add('visible');

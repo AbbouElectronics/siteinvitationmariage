@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
 
@@ -22,9 +22,9 @@
     <!-- Vidéo derrière (joue dès le chargement, révélée quand la porte s'ouvre) -->
     <div class="behind-door" id="behindDoor">
       <video id="doorVideo" autoplay muted loop playsinline preload="auto">
-        <source src="video/porte.mp4" type="video/mp4">
-        <source src="video/porte.mov" type="video/quicktime">
-        <source src="video/porte.webm" type="video/webm">
+        <source src="video/invitation-video.mp4" type="video/mp4">
+        <source src="video/invitation-video.mov" type="video/quicktime">
+        <source src="video/invitation-video.webm" type="video/webm">
       </video>
       <div class="behind-text" id="behindText">
         <p class="bt-names">Abdelali &amp; Zahia</p>
@@ -80,6 +80,13 @@
         </div>
         <!-- Seuil bas -->
         <div class="door-bottom-bar"></div>
+      </div>
+
+      <!-- Hint cliquable sur la porte -->
+      <div class="door-hint" id="doorHint">
+        <span class="door-hint-icon">✦</span>
+        <p>Cliquez pour ouvrir</p>
+        <span class="door-hint-icon">✦</span>
       </div>
 
       <!-- Mur droit + bougainvillées -->
