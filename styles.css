@@ -101,8 +101,7 @@ body {
   z-index: 2;
   display: flex;
   cursor: pointer;
-  /* Mur blanc plâtre */
-  background: linear-gradient(180deg, #f2ede6 0%, #ede8e0 60%, #e8e2d8 100%);
+  background: transparent; /* transparent pour voir la vidéo derrière */
 }
 
 /* Murs latéraux */
@@ -138,7 +137,7 @@ body {
   flex: 1;
   position: relative;
   display: flex;
-  /* Cadre/linteau de la porte */
+  background: transparent;
   border-left:  clamp(6px,1.2vw,18px) solid #c8ba96;
   border-right: clamp(6px,1.2vw,18px) solid #c8ba96;
   perspective: 3200px;
