@@ -2,22 +2,24 @@
    VARIABLES & RESET
 ═══════════════════════════════════════════════ */
 :root {
-  --dark:       #100609;
-  --dark2:      #1f0a12;
-  --primary:    #8B1A3A;
-  --rose:       #C47C8A;
-  --gold:       #D4AF37;
-  --gold-light: #F0D57A;
-  --gold-pale:  rgba(212,175,55,0.15);
-  --cream:      #FAF7F2;
-  --blush:      #F8EDEF;
-  --text:       #2E1118;
-  --text-light: #7A5060;
+  --dark:       #1A0410;  /* bordeaux très sombre */
+  --dark2:      #2E0818;  /* bordeaux profond */
+  --primary:    #9B1A42;  /* bordeaux rose */
+  --rose:       #E8849C;  /* rose romantique */
+  --gold:       #C8956A;  /* or rosé chaleureux */
+  --gold-light: #F0BFA0;  /* pêche dorée */
+  --gold-pale:  rgba(200,149,106,0.15);
+  --cream:      #FDF0F4;  /* crème rosé */
+  --blush:      #FAE6ED;  /* blush doux */
+  --text:       #2E0F1A;
+  --text-light: #8A5068;
+  --names:      #F2A8C0;  /* rose tendre pour les noms */
+  --names-deep: #D4607A;  /* rose profond */
   --script:     'Dancing Script', cursive;
   --serif:      'Cormorant Garamond', serif;
   --display:    'Playfair Display', serif;
   --radius:     16px;
-  --shadow:     0 20px 60px rgba(139,26,58,0.12);
+  --shadow:     0 20px 60px rgba(155,26,66,0.18);
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -69,8 +71,11 @@ body {
 .bt-names {
   font-family: var(--script);
   font-size: clamp(3rem, 10vw, 7rem);
-  color: var(--gold);
-  text-shadow: 0 0 50px rgba(212,175,55,0.8), 2px 2px 12px rgba(0,0,0,0.9);
+  background: linear-gradient(135deg, #F9C0CB 0%, #E8708A 40%, #F2A0B8 70%, #FFD0DC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(232,112,138,0.8)) drop-shadow(2px 2px 12px rgba(0,0,0,0.9));
   line-height: 1;
   animation: fadeInUp 1.2s ease;
 }
@@ -346,17 +351,17 @@ body {
 .hero-bg-pattern {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(139,26,58,0.55) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(92,26,58,0.45) 0%, transparent 60%),
-    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(31,10,18,0.8) 0%, transparent 100%);
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(180,30,80,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(120,15,60,0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(46,8,24,0.85) 0%, transparent 100%);
 }
 .hero-bg-pattern::after {
   content: '';
   position: absolute; inset: 0;
   background-image:
-    radial-gradient(circle 1px at 20% 20%, rgba(212,175,55,0.15) 1px, transparent 1px),
-    radial-gradient(circle 1px at 80% 80%, rgba(212,175,55,0.1) 1px, transparent 1px),
-    radial-gradient(circle 1px at 60% 30%, rgba(212,175,55,0.08) 1px, transparent 1px);
+    radial-gradient(circle 1px at 20% 20%, rgba(242,168,192,0.2) 1px, transparent 1px),
+    radial-gradient(circle 1px at 80% 80%, rgba(242,168,192,0.15) 1px, transparent 1px),
+    radial-gradient(circle 1px at 60% 30%, rgba(242,168,192,0.1) 1px, transparent 1px);
   background-size: 120px 120px, 200px 200px, 80px 80px;
   animation: twinkle 5s ease-in-out infinite alternate;
 }
@@ -379,19 +384,23 @@ body {
   font-size: clamp(0.75rem, 2vw, 0.95rem);
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: rgba(240,213,122,0.75);
+  color: rgba(240,180,200,0.8);
 }
 .ornament {
   font-size: 1.1rem;
-  color: var(--gold);
+  color: var(--rose);
   letter-spacing: 12px;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .hero-names {
   font-family: var(--script);
   font-size: clamp(4rem, 16vw, 9.5rem);
-  color: var(--gold);
-  text-shadow: 0 0 60px rgba(212,175,55,0.5), 0 0 120px rgba(212,175,55,0.2);
+  /* Dégradé rose romantique pour les noms */
+  background: linear-gradient(135deg, #F9C0CB 0%, #E8708A 40%, #F2A0B8 70%, #FFD0DC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(232,112,138,0.6));
   line-height: 1;
   margin: 0.2rem 0;
 }
@@ -407,16 +416,16 @@ body {
   font-family: var(--serif);
   font-size: 1rem;
   letter-spacing: 2px;
-  color: rgba(240,213,122,0.7);
+  color: rgba(240,180,200,0.75);
 }
 .hero-cta {
   display: inline-block;
   margin-top: 1.5rem;
   padding: 1rem 3rem;
   background: transparent;
-  border: 1.5px solid var(--gold);
+  border: 1.5px solid var(--rose);
   border-radius: 50px;
-  color: var(--gold);
+  color: var(--rose);
   font-family: var(--serif);
   font-size: 0.95rem;
   letter-spacing: 2px;
@@ -424,15 +433,15 @@ body {
   transition: all 0.35s ease;
 }
 .hero-cta:hover {
-  background: var(--gold);
-  color: var(--dark);
+  background: var(--rose);
+  color: white;
   transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(212,175,55,0.4);
+  box-shadow: 0 12px 30px rgba(232,132,156,0.5);
 }
 .hero-scroll-hint {
   position: absolute; bottom: 2rem; left: 50%;
   transform: translateX(-50%);
-  color: var(--gold); font-size: 1.5rem; opacity: 0.6;
+  color: var(--rose); font-size: 1.5rem; opacity: 0.6;
   animation: bounce 2.2s ease-in-out infinite;
   z-index: 2;
 }
@@ -445,16 +454,16 @@ body {
    COMPTE À REBOURS
 ═══════════════════════════════════════════════ */
 .countdown-section {
-  background: var(--dark2);
+  background: linear-gradient(135deg, #2E0818 0%, #420C22 50%, #2E0818 100%);
   padding: 5rem 2rem;
   text-align: center;
-  border-top: 1px solid rgba(212,175,55,0.1);
-  border-bottom: 1px solid rgba(212,175,55,0.1);
+  border-top: 1px solid rgba(232,132,156,0.15);
+  border-bottom: 1px solid rgba(232,132,156,0.15);
 }
 .countdown-title {
   font-family: var(--script);
   font-size: 2rem;
-  color: var(--gold);
+  color: var(--rose);
   margin-bottom: 2rem;
 }
 .countdown {
@@ -468,17 +477,17 @@ body {
   display: flex; flex-direction: column; align-items: center;
   min-width: 90px;
   padding: 1.2rem 0.8rem;
-  background: rgba(212,175,55,0.06);
-  border: 1px solid rgba(212,175,55,0.2);
+  background: rgba(232,132,156,0.08);
+  border: 1px solid rgba(232,132,156,0.25);
   border-radius: 14px;
 }
 .countdown-number {
   font-family: var(--display);
   font-size: clamp(2.8rem, 7vw, 4.5rem);
-  color: var(--gold);
+  color: var(--rose);
   line-height: 1;
   font-weight: 700;
-  text-shadow: 0 0 20px rgba(212,175,55,0.3);
+  text-shadow: 0 0 20px rgba(232,132,156,0.4);
   transition: all 0.3s ease;
 }
 .countdown-label {
@@ -534,7 +543,7 @@ body {
 }
 .section-line {
   width: 70px; height: 1.5px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--rose), transparent);
   margin: 0 auto;
 }
 .section-desc {
@@ -738,23 +747,23 @@ body {
 ═══════════════════════════════════════════════ */
 .rsvp-section {
   padding: 7rem 2rem;
-  background: linear-gradient(160deg, #1f0a12 0%, #3a0f20 40%, #2d0a18 80%, #1a0a0f 100%);
+  background: linear-gradient(160deg, #1A0410 0%, #380A1E 40%, #2A0814 80%, #1A0410 100%);
   position: relative;
   overflow: hidden;
 }
 .rsvp-section::before {
   content: '';
   position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ctext x='30' y='35' text-anchor='middle' font-size='20' fill='rgba(212,175,55,0.04)'%3E✦%3C/text%3E%3C/svg%3E") repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ctext x='30' y='35' text-anchor='middle' font-size='20' fill='rgba(232,132,156,0.05)'%3E♥%3C/text%3E%3C/svg%3E") repeat;
   pointer-events: none;
 }
-.rsvp-section .section-tag { color: rgba(240,213,122,0.7); }
-.rsvp-section .section-title { color: var(--gold); }
+.rsvp-section .section-tag { color: rgba(240,180,200,0.8); }
+.rsvp-section .section-title { color: var(--rose); }
 .rsvp-section .section-line {
-  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(232,132,156,0.6), transparent);
 }
-.rsvp-section .section-desc { color: rgba(250,247,242,0.7); }
-.rsvp-section .section-desc strong { color: var(--gold-light); }
+.rsvp-section .section-desc { color: rgba(250,230,237,0.75); }
+.rsvp-section .section-desc strong { color: var(--names); }
 
 .rsvp-form {
   max-width: 580px;
@@ -826,9 +835,9 @@ body {
 .rsvp-btn {
   width: 100%;
   padding: 1.2rem;
-  background: linear-gradient(135deg, var(--gold) 0%, #b8941e 100%);
+  background: linear-gradient(135deg, #E8708A 0%, #C04060 50%, #E8708A 100%);
   border: none; border-radius: 50px;
-  color: var(--dark);
+  color: white;
   font-family: var(--display);
   font-size: 1.05rem;
   font-weight: 700;
@@ -838,9 +847,9 @@ body {
   margin-top: 0.5rem;
 }
 .rsvp-btn:hover {
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+  background: linear-gradient(135deg, #F290A8 0%, #E8708A 100%);
   transform: translateY(-3px);
-  box-shadow: 0 14px 35px rgba(212,175,55,0.45);
+  box-shadow: 0 14px 35px rgba(232,112,138,0.5);
 }
 
 .rsvp-success {
@@ -875,23 +884,26 @@ body {
    PIED DE PAGE
 ═══════════════════════════════════════════════ */
 .footer {
-  background: var(--dark);
+  background: linear-gradient(160deg, #1A0410 0%, #2E0818 50%, #1A0410 100%);
   padding: 5rem 2rem 3rem;
   text-align: center;
-  border-top: 1px solid rgba(212,175,55,0.12);
+  border-top: 1px solid rgba(232,132,156,0.2);
 }
 .footer-ornament {
   font-size: 0.9rem;
-  color: var(--gold);
+  color: var(--rose);
   letter-spacing: 1.2rem;
-  opacity: 0.5;
+  opacity: 0.6;
   margin-bottom: 2rem;
 }
 .footer-names {
   font-family: var(--script);
   font-size: clamp(3rem, 9vw, 5.5rem);
-  color: var(--gold);
-  text-shadow: 0 0 40px rgba(212,175,55,0.3);
+  background: linear-gradient(135deg, #F9C0CB 0%, #E8708A 40%, #F2A0B8 70%, #FFD0DC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(232,112,138,0.5));
   line-height: 1;
 }
 .footer-date {
