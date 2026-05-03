@@ -46,7 +46,6 @@ body {
 .behind-door {
   position: absolute; inset: 0;
   z-index: 1;
-  /* Fond élégant pendant le chargement de la vidéo */
   background: radial-gradient(ellipse at center, #1a2a4a 0%, #0a1020 60%, #050810 100%);
 }
 #doorVideo {
@@ -57,10 +56,18 @@ body {
   min-width: 100%; min-height: 100%;
   border: none;
   pointer-events: none;
+  /* Empêche le navigateur d'afficher ses contrôles médias */
+  -webkit-media-controls: none;
 }
-/* Bloque les contrôles YouTube */
+/* Overlay bloquant TOUS les clics et survols sur la vidéo */
 .video-blocker {
   position: absolute;
+  inset: -10px;          /* dépasse légèrement pour couvrir les bords */
+  z-index: 5;
+  background: transparent;
+  pointer-events: all;
+  cursor: default;
+}
   inset: 0;
   z-index: 2;
   background: transparent;

@@ -7,6 +7,10 @@ function openDoor() {
   if (doorOpened) return;
   doorOpened = true;
 
+  // Lancer la musique dès le clic (interaction utilisateur = autoplay autorisé)
+  const audio = document.getElementById('weddingMusic');
+  if (audio) { audio.volume = 0.4; audio.play().then(() => setPlaying(true)).catch(() => {}); }
+
   // Masquer la ligne centrale
   const seam = document.getElementById('doorSeam');
   if (seam) seam.style.opacity = '0';
