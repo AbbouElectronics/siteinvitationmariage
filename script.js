@@ -7,9 +7,11 @@ function openDoor() {
   if (doorOpened) return;
   doorOpened = true;
 
-  // Masquer le hint
+  // Masquer le hint et la ligne centrale
   const hint = document.getElementById('doorHint');
   if (hint) hint.classList.add('hidden');
+  const seam = document.getElementById('doorSeam');
+  if (seam) seam.style.opacity = '0';
 
   // Ouvrir les deux panneaux (vidéo déjà en train de jouer derrière)
   document.getElementById('dpLeft').classList.add('open');

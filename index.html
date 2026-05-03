@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
 
@@ -73,20 +73,21 @@
           <div class="dp-handle dph-right"></div>
         </div>
         <!-- Séparation -->
-        <div class="door-center-seam"></div>
+        <div class="door-center-seam" id="doorSeam"></div>
         <!-- Panneau droit -->
         <div class="door-panel dp-right" id="dpRight">
           <div class="dp-handle dph-left"></div>
         </div>
         <!-- Seuil bas -->
         <div class="door-bottom-bar"></div>
-      </div>
 
-      <!-- Hint cliquable sur la porte -->
-      <div class="door-hint" id="doorHint">
-        <span class="door-hint-icon">✦</span>
-        <p>Cliquez pour ouvrir</p>
-        <span class="door-hint-icon">✦</span>
+        <!-- Indicateur cliquable centré sur la porte -->
+        <div class="door-hint" id="doorHint">
+          <div class="door-hint-ring">
+            <div class="door-hint-triangle">▶</div>
+          </div>
+          <p class="door-hint-text">Ouvrir l'invitation</p>
+        </div>
       </div>
 
       <!-- Mur droit + bougainvillées -->
