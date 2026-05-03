@@ -31,8 +31,8 @@ function openDoor() {
 }
 
 function closeOpening() {
-  const iframe = document.getElementById('doorVideo');
-  if (iframe) iframe.src = 'about:blank';
+  const video = document.getElementById('doorVideo');
+  if (video) { video.pause(); video.src = ''; }
   document.getElementById('opening-overlay').classList.add('hidden');
   startPetals();
   tryAutoPlay();
