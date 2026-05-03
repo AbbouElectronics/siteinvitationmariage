@@ -58,15 +58,26 @@ body {
   border: none;
   pointer-events: none;
 }
+/* Bloque les contrôles YouTube */
+.video-blocker {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: transparent;
+  pointer-events: all;
+}
 .behind-text {
   position: absolute; inset: 0;
+  z-index: 3;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center; padding: 2rem;
   background: linear-gradient(180deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.15) 100%);
   opacity: 0;
   transition: opacity 1.4s ease;
+  pointer-events: none;
 }
+.behind-text.visible { pointer-events: all; }
 .behind-text.visible { opacity: 1; }
 .bt-names {
   font-family: var(--script);

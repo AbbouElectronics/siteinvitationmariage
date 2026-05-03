@@ -7,9 +7,7 @@ function openDoor() {
   if (doorOpened) return;
   doorOpened = true;
 
-  // Masquer le hint et la ligne centrale
-  const hint = document.getElementById('doorHint');
-  if (hint) hint.classList.add('hidden');
+  // Masquer la ligne centrale
   const seam = document.getElementById('doorSeam');
   if (seam) seam.style.opacity = '0';
 
