@@ -5,31 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- MODIFIEZ ici le titre avec vos prénoms -->
   <title>Mariage de ABDELALI &amp; ZAHIA — 22 Juin 2026</title>
-  <meta property="og:title" content="Mariage de PRÉNOM1 & PRÉNOM2">
+  <meta property="og:title" content="Mariage de Abdelali & Zahia">
   <meta property="og:description" content="Rejoignez-nous pour célébrer notre mariage le 22 Juin 2026 !">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 
   <!-- ══════════════════════════════════════════ -->
-  <!--  ÉCRAN D'OUVERTURE                        -->
+  <!--  ÉCRAN D'OUVERTURE — SCÈNE MÉDITERRANÉENNE -->
   <!-- ══════════════════════════════════════════ -->
   <div id="opening-overlay" class="opening-overlay">
-    <div class="opening-card">
-      <div class="opening-deco top">✦ ✦ ✦</div>
-      <div class="opening-ring">💍</div>
-      <p class="opening-sub">Vous êtes cordialement invité(e) au mariage de</p>
-      <!-- MODIFIEZ vos prénoms ici -->
-      <h1 class="opening-names">PRÉNOM1 &amp; PRÉNOM2</h1>
-      <p class="opening-date-sub">le 22 Juin 2026</p>
-      <div class="opening-deco bottom">✦ ✦ ✦</div>
-      <button class="opening-btn" onclick="closeOpening()">
-        <span>Ouvrir mon invitation</span>
-        <span class="btn-icon">✉</span>
-      </button>
+
+    <!-- Vidéo révélée quand l'enveloppe s'ouvre -->
+    <div class="behind-door" id="behindDoor">
+      <video id="doorVideo" muted loop playsinline preload="auto"
+             disablepictureinpicture disableremoteplayback>
+        <source src="video/invitation-video.mp4" type="video/mp4">
+      </video>
+      <div class="behind-text" id="behindText">
+        <p class="bt-names">Abdelali &amp; Zahia</p>
+        <p class="bt-venue">O'rale Domaine ✨</p>
+        <button class="bt-enter" onclick="closeOpening()">Voir l'invitation →</button>
+      </div>
+    </div>
+
+    <!-- Scène enveloppe -->
+    <div class="envelope-scene" id="envelopeScene" onclick="openEnvelope()">
+
+      <!-- Texture papier -->
+      <div class="paper-texture"></div>
+
+      <!-- Cupidon décoratif -->
+      <div class="cupid-deco" aria-hidden="true">
+        <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Corps -->
+          <ellipse cx="60" cy="62" rx="14" ry="18" fill="#c8a090"/>
+          <!-- Tête -->
+          <circle cx="60" cy="38" r="13" fill="#d4aa94"/>
+          <!-- Cheveux -->
+          <ellipse cx="60" cy="28" rx="11" ry="7" fill="#c09070"/>
+          <!-- Aile gauche -->
+          <path d="M46,52 C28,42 20,28 30,22 C36,18 44,26 46,38" fill="rgba(255,255,255,0.7)" stroke="rgba(180,140,120,0.4)" stroke-width="0.8"/>
+          <path d="M46,52 C22,48 18,36 26,30" fill="rgba(255,255,255,0.5)"/>
+          <!-- Aile droite -->
+          <path d="M74,52 C92,42 100,28 90,22 C84,18 76,26 74,38" fill="rgba(255,255,255,0.7)" stroke="rgba(180,140,120,0.4)" stroke-width="0.8"/>
+          <path d="M74,52 C98,48 102,36 94,30" fill="rgba(255,255,255,0.5)"/>
+          <!-- Bras tenant une flèche -->
+          <line x1="52" y1="58" x2="28" y2="72" stroke="#c8a090" stroke-width="3" stroke-linecap="round"/>
+          <line x1="18" y1="68" x2="38" y2="78" stroke="#9B1A3A" stroke-width="2" stroke-linecap="round"/>
+          <polygon points="14,66 20,72 24,63" fill="#9B1A3A"/>
+          <!-- Yeux -->
+          <circle cx="55" cy="37" r="2" fill="#5a3020"/>
+          <circle cx="65" cy="37" r="2" fill="#5a3020"/>
+          <!-- Sourire -->
+          <path d="M55,44 Q60,48 65,44" stroke="#9B6050" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Enveloppe -->
+      <div class="envelope-wrap" id="envelopeWrap">
+        <!-- Rabats latéraux -->
+        <div class="env-flap env-left"></div>
+        <div class="env-flap env-right"></div>
+        <!-- Rabat bas -->
+        <div class="env-flap env-bottom"></div>
+        <!-- Corps blanc -->
+        <div class="env-body"></div>
+        <!-- Rabat haut (s'ouvre) -->
+        <div class="env-flap env-top" id="envFlapTop"></div>
+
+        <!-- Cachet de cire bordeaux -->
+        <div class="wax-seal" id="waxSeal">
+          <div class="seal-ring"></div>
+          <span class="seal-initials">A &amp; Z</span>
+        </div>
+      </div>
+
+      <!-- Texte invitation -->
+      <p class="env-subtitle">Cette invitation est exclusive pour vous</p>
+
+      <!-- Bouton passer -->
+      <button class="env-skip" onclick="event.stopPropagation(); closeOpening()">Passer →</button>
+
     </div>
   </div>
 
@@ -40,8 +100,8 @@
   <!--  LECTEUR DE MUSIQUE (fixe en bas)         -->
   <!-- ══════════════════════════════════════════ -->
   <div class="music-player" id="musicPlayer">
-    <!-- Remplacez music/song.mp3 par le chemin de votre chanson -->
-    <audio id="weddingMusic" loop>
+    <audio id="weddingMusic" loop crossorigin="anonymous">
+      <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
       <source src="music/song.mp3" type="audio/mpeg">
     </audio>
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
@@ -60,7 +120,7 @@
       <p class="hero-sub reveal">Nous vous invitons à célébrer notre union</p>
       <div class="ornament reveal">❧ ❧ ❧</div>
       <!-- MODIFIEZ vos prénoms ici -->
-      <h1 class="hero-names reveal">PRÉNOM1 &amp; PRÉNOM2</h1>
+      <h1 class="hero-names reveal">Abdelali &amp; Zahia</h1>
       <div class="ornament reveal">✦ ✦ ✦</div>
       <p class="hero-date reveal">Le 22 Juin 2026</p>
       <!-- MODIFIEZ votre ville ici -->
@@ -217,7 +277,11 @@
         <p class="section-desc">Merci de confirmer votre présence avant le <strong>1er Juin 2026</strong></p>
       </div>
 
-      <form class="rsvp-form reveal" id="rsvpForm">
+      <form class="rsvp-form reveal" id="rsvpForm" method="POST">
+        <!-- Web3Forms -->
+        <input type="hidden" name="access_key" value="c60082dd-5b7a-472c-aa66-c1720e91aceb">
+        <input type="hidden" name="subject" value="💌 Nouveau RSVP — Mariage Abdelali & Zahia">
+        <input type="hidden" name="from_name" value="Site Invitation Mariage">
         <div class="form-row">
           <div class="form-group">
             <label for="prenom">Votre Prénom *</label>
@@ -273,7 +337,7 @@
         <div class="success-icon">💌</div>
         <h3>Merci mille fois !</h3>
         <p>Nous avons bien reçu votre réponse.<br>Nous avons tellement hâte de vous voir !</p>
-        <p class="success-names">— PRÉNOM1 &amp; PRÉNOM2 —</p>
+        <p class="success-names">— Abdelali &amp; Zahia —</p>
       </div>
     </div>
   </section>
@@ -284,7 +348,7 @@
   <footer class="footer">
     <div class="footer-ornament">✦ ✦ ✦</div>
     <!-- MODIFIEZ vos prénoms ici -->
-    <h2 class="footer-names">PRÉNOM1 &amp; PRÉNOM2</h2>
+    <h2 class="footer-names">Abdelali &amp; Zahia</h2>
     <p class="footer-date">22 Juin 2026</p>
     <p class="footer-quote">"Et ils vécurent heureux pour toujours..."</p>
     <div class="footer-hearts">♥ ♥ ♥</div>

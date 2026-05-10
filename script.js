@@ -1,7 +1,47 @@
 // ═══════════════════════════════════════════════
-//  ÉCRAN D'OUVERTURE
+//  ENVELOPPE → CACHET → VIDÉO → INVITATION
 // ═══════════════════════════════════════════════
+let envelopeOpened = false;
+
+function openEnvelope() {
+  if (envelopeOpened) return;
+  envelopeOpened = true;
+
+  // 1. Lancer la musique au clic (interaction = autoplay autorisé)
+  const audio = document.getElementById('weddingMusic');
+  if (audio) { audio.volume = 0.4; audio.play().then(() => setPlaying(true)).catch(() => {}); }
+
+  // 2. Briser le cachet de cire
+  const seal = document.getElementById('waxSeal');
+  if (seal) seal.classList.add('broken');
+
+  // 3. Ouvrir le rabat supérieur (0.5s après le cachet)
+  setTimeout(() => {
+    const flap = document.getElementById('envFlapTop');
+    if (flap) flap.classList.add('open');
+  }, 500);
+
+  // 4. Lancer la vidéo + faire disparaître l'enveloppe (2.2s)
+  setTimeout(() => {
+    const video = document.getElementById('doorVideo');
+    if (video) video.play().catch(() => {});
+    const scene = document.getElementById('envelopeScene');
+    if (scene) scene.classList.add('fading');
+  }, 2200);
+
+  // 5. Afficher noms + bouton sur la vidéo (4s)
+  setTimeout(() => {
+    const behindText = document.getElementById('behindText');
+    if (behindText) behindText.classList.add('visible');
+  }, 4000);
+
+  // 6. Fermeture automatique après 15s
+  setTimeout(closeOpening, 15000);
+}
+
 function closeOpening() {
+  const video = document.getElementById('doorVideo');
+  if (video) { video.pause(); video.src = ''; }
   document.getElementById('opening-overlay').classList.add('hidden');
   startPetals();
   tryAutoPlay();
@@ -79,7 +119,7 @@ updateCountdown();
 // ═══════════════════════════════════════════════
 //  PÉTALES FLOTTANTS
 // ═══════════════════════════════════════════════
-const PETALS = ['🌸', '🌺', '🌹', '🌷', '💐', '✿'];
+const PETALS = ['🦢', '🦢', '🦢', '✦', '🤍'];
 
 function startPetals() {
   const container = document.getElementById('petals-container');
@@ -115,35 +155,41 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // ═══════════════════════════════════════════════
-//  FORMULAIRE RSVP
+//  FORMULAIRE RSVP — Web3Forms
 // ═══════════════════════════════════════════════
-document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
-  const data = Object.fromEntries(new FormData(this));
+  const btn = this.querySelector('.rsvp-btn');
+  btn.textContent = 'Envoi en cours...';
+  btn.disabled = true;
 
-  // ─── Option A : envoi par e-mail (mailto) ───────────────────────────────
-  // Décommentez les lignes ci-dessous et remplacez "votre@email.com"
-  // ────────────────────────────────────────────────────────────────────────
-  // const subj = encodeURIComponent(`RSVP — ${data.prenom} ${data.nom}`);
-  // const body = encodeURIComponent(
-  //   `Prénom : ${data.prenom}\nNom : ${data.nom}\nEmail : ${data.email}\n`
-  //   + `Présence : ${data.presence}\nNombre : ${data.invites}\n`
-  //   + `Allergies : ${data.allergies || 'aucune'}\nMessage : ${data.message || '—'}`
-  // );
-  // window.open(`mailto:votre@email.com?subject=${subj}&body=${body}`);
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData);
 
-  // ─── Option B : Formspree (gratuit) ─────────────────────────────────────
-  // 1. Créez un compte sur https://formspree.io
-  // 2. Remplacez YOUR_FORM_ID dans l'action ci-dessous
-  // 3. Changez method="POST" dans le HTML <form> et ajoutez action="https://formspree.io/f/YOUR_FORM_ID"
-  // ────────────────────────────────────────────────────────────────────────
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
 
-  // Affiche le message de succès
-  this.style.display = 'none';
-  const success = document.getElementById('rsvpSuccess');
-  success.style.display = 'block';
-  success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (json.success) {
+      this.style.display = 'none';
+      const success = document.getElementById('rsvpSuccess');
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      btn.textContent = 'Réessayer 💌';
+      btn.disabled = false;
+      alert('Une erreur est survenue. Merci de réessayer.');
+    }
+  } catch {
+    btn.textContent = 'Réessayer 💌';
+    btn.disabled = false;
+    alert('Problème de connexion. Merci de réessayer.');
+  }
 });
 
 // ═══════════════════════════════════════════════
