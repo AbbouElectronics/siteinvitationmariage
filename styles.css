@@ -61,11 +61,6 @@ body {
 /* Désactive les contrôles natifs du navigateur sur la vidéo */
 #doorVideo::-webkit-media-controls { display: none !important; }
 #doorVideo::-webkit-media-controls-enclosure { display: none !important; }
-  inset: 0;
-  z-index: 2;
-  background: transparent;
-  pointer-events: all;
-}
 .behind-text {
   position: absolute; inset: 0;
   z-index: 3;
@@ -109,189 +104,178 @@ body {
   cursor: pointer; transition: all 0.35s ease; backdrop-filter: blur(6px);
   animation: fadeInUp 1.2s ease 0.6s both;
 }
-.bt-enter:hover { background: var(--gold); color: var(--dark); }
+.bt-enter:hover { background: var(--rose); color: white; }
 
-/* ══ SCÈNE MÉDITERRANÉENNE ══ */
-.med-scene {
+/* ══════════════════════════════════════════
+   SCÈNE ENVELOPPE
+══════════════════════════════════════════ */
+.envelope-scene {
   position: absolute; inset: 0;
   z-index: 2;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
   cursor: pointer;
-  background: transparent; /* transparent pour voir la vidéo derrière */
-}
-
-/* Murs latéraux */
-.wall {
-  flex-shrink: 0;
-  width: clamp(80px, 18vw, 220px);
-  position: relative;
-  background: linear-gradient(180deg, #f5f0e8 0%, #ede8de 100%);
-  /* Légère texture plâtre */
-  box-shadow: inset 0 0 60px rgba(0,0,0,0.04);
-}
-
-/* Branche nue (mur gauche) */
-.branch-svg {
-  position: absolute;
-  right: -10px; top: 5%;
-  width: 100%; height: 88%;
-  opacity: 0.75;
-}
-
-/* Bougainvillées (mur droit) */
-.bougainvillea {
-  position: absolute;
-  left: -5px; top: 8%;
-  display: flex; flex-direction: column;
-  gap: clamp(4px, 1vh, 10px);
-  font-size: clamp(1.4rem, 3.5vw, 2.8rem);
-  line-height: 1;
-}
-
-/* Zone de la porte */
-.door-area {
-  flex: 1;
-  position: relative;
-  display: flex;
-  background: transparent;
-  border-left:  clamp(6px,1.2vw,18px) solid #c8ba96;
-  border-right: clamp(6px,1.2vw,18px) solid #c8ba96;
-  perspective: 3200px;
-  transform-style: preserve-3d;
-}
-.door-top-bar {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: clamp(14px,2.5vh,28px);
-  background: linear-gradient(180deg, #d0c29a, #c2b488, #cabe94);
-  z-index: 10;
-}
-.door-bottom-bar {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: clamp(10px,1.8vh,20px);
-  background: linear-gradient(180deg, #b8aa80, #a89870);
-  z-index: 10;
-}
-.door-center-seam {
-  position: absolute; top: 0; bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  background: linear-gradient(180deg, #1a3468, #0e2250, #1a3468);
-  z-index: 10;
-}
-
-/* Panneaux de la porte bleue */
-.door-panel {
-  flex: 1; height: 100%;
-  position: relative;
-  will-change: transform;
-  /* Bleu méditerranéen avec planches verticales */
   background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(0,0,20,0.12) 0px,
-      rgba(0,0,20,0.12) 2px,
-      rgba(255,255,255,0.06) 2px,
-      rgba(255,255,255,0.06) 6px,
-      transparent 6px,
-      transparent 44px
-    ),
-    linear-gradient(175deg, #4472C0 0%, #3560B0 20%, #2A52A0 50%, #224894 75%, #1C3E88 100%);
-  box-shadow: inset 0 0 80px rgba(0,0,40,0.25);
+    radial-gradient(ellipse 80% 60% at 30% 40%, #f0e8d8 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 75% 65%, #e8e0cc 0%, transparent 55%),
+    linear-gradient(160deg, #f5f0e4 0%, #ede6d2 50%, #f2ebe0 100%);
+  transition: opacity 1.2s ease;
 }
-.dp-left {
-  transform-origin: left center;
-  border-right: 2px solid #1a3878;
-  transition: transform 4.5s cubic-bezier(0.6, 0, 0.25, 1);
-}
-.dp-right {
-  transform-origin: right center;
-  border-left: 2px solid #1a3878;
-  transition: transform 4.5s cubic-bezier(0.6, 0, 0.25, 1);
-}
-.dp-left.open  { transform: perspective(3200px) rotateY(-130deg); }
-.dp-right.open { transform: perspective(3200px) rotateY(130deg); }
+.envelope-scene.fading { opacity: 0; pointer-events: none; }
 
-/* Poignées (barres laiton horizontales comme dans la photo) */
-.dp-handle {
-  position: absolute;
-  top: 56%;
+/* Texture papier fine */
+.paper-texture {
+  position: absolute; inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23ede6d4'/%3E%3Ccircle cx='1' cy='1' r='0.8' fill='%23e6dcc8' opacity='0.5'/%3E%3Ccircle cx='3' cy='3' r='0.8' fill='%23e8e0cc' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  pointer-events: none;
 }
-/* Barre verticale (grip) */
-.dp-handle::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 15px; height: 65px;
-  background: linear-gradient(90deg, #c8980a, #e8c030, #d4aa20, #b08010);
-  border-radius: 8px;
-  box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-}
-/* Barre horizontale (levier) */
-.dp-handle::after {
-  content: '';
-  position: absolute;
-  top: 38px;
-  width: 55px; height: 13px;
-  background: linear-gradient(180deg, #e8c030, #c89010, #d4aa20);
-  border-radius: 7px;
-  box-shadow: 2px 3px 8px rgba(0,0,0,0.5);
-}
-.dph-right { right: 12px; }
-.dph-right::before { right: 0; }
-.dph-right::after  { right: 0; }
-.dph-left  { left: 12px; }
-.dph-left::before  { left: 0; }
-.dph-left::after   { left: 0; }
 
-/* Indicateur cliquable centré sur la porte */
-.door-hint {
+/* Cupidon décoratif */
+.cupid-deco {
+  position: absolute;
+  top: clamp(10px, 5vh, 60px);
+  right: clamp(20px, 8vw, 120px);
+  width: clamp(70px, 10vw, 130px);
+  opacity: 0.75;
+  animation: floatCupid 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes floatCupid {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%       { transform: translateY(-10px) rotate(3deg); }
+}
+
+/* ── Enveloppe ── */
+.envelope-wrap {
+  position: relative;
+  width: clamp(280px, 58vw, 560px);
+  height: clamp(190px, 38vw, 380px);
+  perspective: 1200px;
+  filter: drop-shadow(0 20px 50px rgba(100,80,50,0.2));
+}
+
+.env-body {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, #fdfaf3 0%, #f5eedc 60%, #ede4cc 100%);
+  border: 1px solid rgba(180,155,110,0.3);
+}
+
+/* Rabats latéraux et bas (visibles en permanence) */
+.env-flap { position: absolute; inset: 0; }
+
+.env-left {
+  background: linear-gradient(135deg, #ede4cc 0%, #e4d8b8 100%);
+  clip-path: polygon(0 0, 0 100%, 52% 50%);
+  z-index: 1;
+}
+.env-right {
+  background: linear-gradient(225deg, #e8dfc8 0%, #dfd3b5 100%);
+  clip-path: polygon(100% 0, 48% 50%, 100% 100%);
+  z-index: 1;
+}
+.env-bottom {
+  background: linear-gradient(180deg, #ede5cc 0%, #e4d9bc 100%);
+  clip-path: polygon(0 100%, 100% 100%, 50% 45%);
+  z-index: 2;
+}
+
+/* Rabat supérieur — s'ouvre au clic */
+.env-top {
+  background: linear-gradient(180deg, #f5eedd 0%, #e8dfc4 60%, #ddd4b0 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 58%);
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 1.8s cubic-bezier(0.3, 0, 0.1, 1);
+  z-index: 5;
+  border-top: 1px solid rgba(180,155,110,0.25);
+}
+.env-top.open {
+  transform: perspective(1000px) rotateX(-185deg);
+}
+
+/* Cachet de cire bordeaux */
+.wax-seal {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 8;
-  pointer-events: none;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  opacity: 1;
-  transition: opacity 0.5s ease;
-}
-.door-hint.hidden { opacity: 0; }
-
-/* Cercle pulsant avec triangle play */
-.door-hint-ring {
-  width: clamp(60px, 10vw, 90px);
-  height: clamp(60px, 10vw, 90px);
+  width: clamp(80px, 14vw, 128px);
+  height: clamp(80px, 14vw, 128px);
   border-radius: 50%;
-  border: 2px solid rgba(212,175,55,0.8);
-  background: rgba(10, 20, 50, 0.45);
-  backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 0 0 rgba(212,175,55,0.5);
-  animation: ripple 2s ease-out infinite;
+  background:
+    radial-gradient(circle at 35% 28%, #c8382a 0%, #9e2018 38%, #7c1610 65%, #5e0e08 100%);
+  box-shadow:
+    0 6px 24px rgba(80,15,8,0.55),
+    0 2px 6px rgba(0,0,0,0.3),
+    inset 0 3px 10px rgba(255,255,255,0.18),
+    inset 0 -3px 10px rgba(0,0,0,0.35);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  animation: sealPulse 3s ease-in-out infinite;
 }
-.door-hint-triangle {
-  color: var(--gold);
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  margin-left: 4px;
-  filter: drop-shadow(0 0 8px rgba(212,175,55,0.8));
+@keyframes sealPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(80,15,8,0.55), 0 0 0 0 rgba(155,26,42,0.4), inset 0 3px 10px rgba(255,255,255,0.18), inset 0 -3px 10px rgba(0,0,0,0.35); }
+  50%       { box-shadow: 0 8px 30px rgba(80,15,8,0.65), 0 0 0 12px rgba(155,26,42,0), inset 0 3px 10px rgba(255,255,255,0.18), inset 0 -3px 10px rgba(0,0,0,0.35); }
 }
-.door-hint-text {
+.wax-seal.broken {
+  transform: translate(-50%, -65%) scale(0.75) rotate(25deg);
+  opacity: 0;
+}
+
+.seal-ring {
+  position: absolute; inset: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(210,80,60,0.45);
+  pointer-events: none;
+}
+
+.seal-initials {
+  font-family: var(--script);
+  font-size: clamp(1.3rem, 3vw, 2.2rem);
+  color: rgba(255,215,195,0.92);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  letter-spacing: 3px;
+  position: relative; z-index: 1;
+  user-select: none;
+}
+
+/* Texte romantique sous l'enveloppe */
+.env-subtitle {
+  font-family: var(--script);
+  font-size: clamp(1.1rem, 3.5vw, 1.9rem);
+  color: #6b5538;
+  text-align: center;
+  opacity: 0.82;
+  max-width: 580px;
+  padding: 0 2rem;
+  animation: fadeInUp 2s ease 0.5s both;
+  pointer-events: none;
+}
+
+/* Bouton passer */
+.env-skip {
+  position: absolute;
+  bottom: 1.8rem; right: 2rem;
+  background: none;
+  border: none;
   font-family: var(--serif);
-  font-size: clamp(0.6rem, 1.5vw, 0.8rem);
-  letter-spacing: 4px;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.8);
-  text-shadow: 0 1px 10px rgba(0,0,0,0.8);
-  white-space: nowrap;
+  color: rgba(100,80,50,0.45);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  z-index: 10;
+  padding: 0.5rem;
 }
-@keyframes ripple {
-  0%   { box-shadow: 0 0 0 0 rgba(212,175,55,0.5); }
-  70%  { box-shadow: 0 0 0 20px rgba(212,175,55,0); }
-  100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
-}
+.env-skip:hover { color: rgba(100,80,50,0.75); }
 
 /* ═══════════════════════════════════════════════
    PÉTALES FLOTTANTS
@@ -406,7 +390,6 @@ body {
 .hero-names {
   font-family: var(--script);
   font-size: clamp(4rem, 16vw, 9.5rem);
-  /* Dégradé rose romantique pour les noms */
   background: linear-gradient(135deg, #F9C0CB 0%, #E8708A 40%, #F2A0B8 70%, #FFD0DC 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

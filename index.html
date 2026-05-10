@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 
@@ -19,13 +19,11 @@
   <!-- ══════════════════════════════════════════ -->
   <div id="opening-overlay" class="opening-overlay">
 
-    <!-- Vidéo derrière la porte — aucun contrôle, lecture automatique -->
+    <!-- Vidéo révélée quand l'enveloppe s'ouvre -->
     <div class="behind-door" id="behindDoor">
-      <video id="doorVideo" autoplay muted loop playsinline preload="auto"
-             disablepictureinpicture disableremoteplayback
-             x-webkit-airplay="deny">
+      <video id="doorVideo" muted loop playsinline preload="auto"
+             disablepictureinpicture disableremoteplayback>
         <source src="video/invitation-video.mp4" type="video/mp4">
-        <source src="video/invitation-video.webm" type="video/webm">
       </video>
       <div class="behind-text" id="behindText">
         <p class="bt-names">Abdelali &amp; Zahia</p>
@@ -34,64 +32,63 @@
       </div>
     </div>
 
-    <!-- Scène complète : mur + porte + fleurs -->
-    <div class="med-scene" id="medScene" onclick="openDoor()">
+    <!-- Scène enveloppe -->
+    <div class="envelope-scene" id="envelopeScene" onclick="openEnvelope()">
 
-      <!-- Mur gauche + branche nue -->
-      <div class="wall wall-left">
-        <svg class="branch-svg" viewBox="0 0 100 600" preserveAspectRatio="none">
-          <!-- Tronc principal -->
-          <path d="M70,600 C68,480 62,380 58,260 C55,160 52,80 50,10"
-                stroke="#9B8B72" stroke-width="5" fill="none" stroke-linecap="round"/>
-          <!-- Branches gauche -->
-          <path d="M62,320 C50,300 30,280 10,270"
-                stroke="#9B8B72" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          <path d="M58,220 C45,200 20,185 5,180"
-                stroke="#9B8B72" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M55,150 C45,135 28,120 18,112"
-                stroke="#9B8B72" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <!-- Branches droite -->
-          <path d="M64,360 C78,345 90,335 100,330"
-                stroke="#9B8B72" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <path d="M60,270 C72,255 85,248 98,245"
-                stroke="#9B8B72" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <!-- Petits rameaux -->
-          <path d="M10,270 C5,260 2,252 0,246"
-                stroke="#9B8B72" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M30,280 C25,268 22,260 20,252"
-                stroke="#9B8B72" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M5,180 C0,172 -2,164 -3,158"
-                stroke="#9B8B72" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <!-- Texture papier -->
+      <div class="paper-texture"></div>
+
+      <!-- Cupidon décoratif -->
+      <div class="cupid-deco" aria-hidden="true">
+        <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Corps -->
+          <ellipse cx="60" cy="62" rx="14" ry="18" fill="#c8a090"/>
+          <!-- Tête -->
+          <circle cx="60" cy="38" r="13" fill="#d4aa94"/>
+          <!-- Cheveux -->
+          <ellipse cx="60" cy="28" rx="11" ry="7" fill="#c09070"/>
+          <!-- Aile gauche -->
+          <path d="M46,52 C28,42 20,28 30,22 C36,18 44,26 46,38" fill="rgba(255,255,255,0.7)" stroke="rgba(180,140,120,0.4)" stroke-width="0.8"/>
+          <path d="M46,52 C22,48 18,36 26,30" fill="rgba(255,255,255,0.5)"/>
+          <!-- Aile droite -->
+          <path d="M74,52 C92,42 100,28 90,22 C84,18 76,26 74,38" fill="rgba(255,255,255,0.7)" stroke="rgba(180,140,120,0.4)" stroke-width="0.8"/>
+          <path d="M74,52 C98,48 102,36 94,30" fill="rgba(255,255,255,0.5)"/>
+          <!-- Bras tenant une flèche -->
+          <line x1="52" y1="58" x2="28" y2="72" stroke="#c8a090" stroke-width="3" stroke-linecap="round"/>
+          <line x1="18" y1="68" x2="38" y2="78" stroke="#9B1A3A" stroke-width="2" stroke-linecap="round"/>
+          <polygon points="14,66 20,72 24,63" fill="#9B1A3A"/>
+          <!-- Yeux -->
+          <circle cx="55" cy="37" r="2" fill="#5a3020"/>
+          <circle cx="65" cy="37" r="2" fill="#5a3020"/>
+          <!-- Sourire -->
+          <path d="M55,44 Q60,48 65,44" stroke="#9B6050" stroke-width="1.2" fill="none" stroke-linecap="round"/>
         </svg>
       </div>
 
-      <!-- PORTE BLEUE -->
-      <div class="door-area">
-        <!-- Cadre supérieur de la porte -->
-        <div class="door-top-bar"></div>
-        <!-- Panneau gauche -->
-        <div class="door-panel dp-left" id="dpLeft">
-          <div class="dp-handle dph-right"></div>
+      <!-- Enveloppe -->
+      <div class="envelope-wrap" id="envelopeWrap">
+        <!-- Rabats latéraux -->
+        <div class="env-flap env-left"></div>
+        <div class="env-flap env-right"></div>
+        <!-- Rabat bas -->
+        <div class="env-flap env-bottom"></div>
+        <!-- Corps blanc -->
+        <div class="env-body"></div>
+        <!-- Rabat haut (s'ouvre) -->
+        <div class="env-flap env-top" id="envFlapTop"></div>
+
+        <!-- Cachet de cire bordeaux -->
+        <div class="wax-seal" id="waxSeal">
+          <div class="seal-ring"></div>
+          <span class="seal-initials">A &amp; Z</span>
         </div>
-        <!-- Séparation -->
-        <div class="door-center-seam" id="doorSeam"></div>
-        <!-- Panneau droit -->
-        <div class="door-panel dp-right" id="dpRight">
-          <div class="dp-handle dph-left"></div>
-        </div>
-        <!-- Seuil bas -->
-        <div class="door-bottom-bar"></div>
       </div>
 
-      <!-- Mur droit + bougainvillées -->
-      <div class="wall wall-right">
-        <div class="bougainvillea">
-          <span>🌿</span><span>🌺</span><span>🌿</span>
-          <span>🌸</span><span>🌿</span><span>🌺</span>
-          <span>🌸</span><span>🌿</span><span>🌺</span>
-          <span>🌿</span><span>🌸</span><span>🌺</span>
-        </div>
-      </div>
+      <!-- Texte invitation -->
+      <p class="env-subtitle">Cette invitation est exclusive pour vous</p>
+
+      <!-- Bouton passer -->
+      <button class="env-skip" onclick="event.stopPropagation(); closeOpening()">Passer →</button>
 
     </div>
   </div>
